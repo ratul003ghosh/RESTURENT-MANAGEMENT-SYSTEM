@@ -1,0 +1,178 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+}
+
+/* header */
+.body1{
+    background-color: #000000;
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: center;
+}
+.h1{
+    color: white;
+    font-weight: bold;
+    padding: 10px;
+    padding-left: 30px;
+}
+.h2{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    color: white;
+    gap: 20px;
+    padding-right: 30px;
+}
+.h2 a{
+    color: white;
+    text-decoration: none;
+}
+.h2 a:hover{
+    color: #f97316;
+}
+
+/* page background */
+.body2{
+    background-color: #f4f7fb;
+    padding-bottom: 30px;
+}
+
+/* buttons */
+.btn{
+    background-color: #f97316;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    border: none;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.btn2{
+    background-color: white;
+    color: #c85a32;
+    text-align: center;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    border: 1px solid #c85a32;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* hero */
+.orange{
+    background-color: #c85a32;
+    margin-left: 30px;
+    margin-right: 30px;
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+.buy{
+    margin: 10px;
+    background-color: white;
+    border-radius: 5px;
+    padding: 20px;
+}
+.b1{
+    font-weight: bold;
+    font-size: large;
+}
+.b2{
+    font-size: small;
+    padding-top: 10px;
+    color: #555555;
+}
+.b3{
+    display: flex;
+    gap: 10px;
+    padding-top: 15px;
+}
+
+/* section titles */
+.sec-title{
+    font-weight: bold;
+    font-size: large;
+    margin: 30px 30px 5px 30px;
+}
+.sec-sub{
+    color: #555555;
+    font-size: small;
+    margin: 0 30px 10px 30px;
+}
+
+/* grids + cards */
+.grid4{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 15px;
+    margin: 20px 30px;
+}
+.grid3{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
+    margin: 20px 30px;
+}
+.card{
+    background-color: white;
+    border-radius: 5px;
+    padding: 20px;
+}
+.card-title{
+    font-weight: bold;
+}
+.card-text{
+    color: #555555;
+    font-size: small;
+    padding-top: 8px;
+}
+.price{
+    color: #c85a32;
+    font-weight: bold;
+    float: right;
+}
+
+/* status labels */
+.status{
+    font-size: small;
+    font-weight: bold;
+    padding: 3px 10px;
+    border-radius: 10px;
+    display: inline-block;
+}
+.status-open{
+    background-color: #dff0d8;
+    color: #3c763d;
+}
+.status-pending{
+    background-color: #fcf0d0;
+    color: #a67f1a;
+}
+.status-busy{
+    background-color: #f2dede;
+    color: #a94442;
+}
+
+/* footer */
+.body3{
+    background-color: #000000;
+    color: white;
+    text-align: center;
+    padding: 15px;
+}
+
+/* responsive */
+@media (max-width: 800px){
+    .grid4{
+        grid-template-columns: 1fr 1fr;
+    }
+    .grid3{
+        grid-template-columns: 1fr;
+    }
+    .h2{
+        gap: 10px;
+        padding-right: 15px;
+        flex-wrap: wrap;
+    }
+}

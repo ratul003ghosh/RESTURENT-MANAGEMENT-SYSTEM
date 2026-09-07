@@ -1,0 +1,142 @@
+/* Waiter Portal — extends customer.css tokens & components */
+
+.clock-card{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:15px;
+}
+.clock-status{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+.clock-dot{
+    width:12px;
+    height:12px;
+    border-radius:50%;
+    background:var(--text-secondary);
+    flex-shrink:0;
+}
+.clock-dot.on{ background:var(--status-green); }
+.clock-name{ font-weight:bold; }
+.shift-time{
+    font-size:small;
+    color:var(--text-secondary);
+    margin-top:2px;
+}
+.btn-clock-in{ background-color:var(--status-green); }
+.btn-clock-in:hover{ background-color:#38A169; }
+.btn-clock-out{ background-color:#E53E3E; }
+.btn-clock-out:hover{ background-color:#C53030; }
+
+.table-card.mine{
+    border:2px solid var(--status-green);
+    background-color:#F0FFF4;
+    cursor:pointer;
+}
+.table-card.mine .table-status{
+    background-color:#E6FFFA;
+    color:#276749;
+}
+.table-card.available{ cursor:pointer; }
+.table-card p.hint{
+    font-size:12px;
+    color:var(--accent-primary);
+    font-weight:bold;
+    margin-top:4px;
+}
+
+.section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:28px;
+}
+.section-head .section-title,
+.section-head .section-sub{ margin:0; }
+
+.order-card{
+    padding:16px 0;
+    border-bottom:1px solid var(--border-color);
+}
+.order-card:last-child{ border-bottom:none; }
+.order-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:10px;
+    flex-wrap:wrap;
+}
+.order-table-tag{
+    font-size:small;
+    font-weight:bold;
+    color:var(--accent-primary);
+    background:#EBF8FF;
+    padding:3px 9px;
+    border-radius:10px;
+    margin-right:8px;
+}
+.order-actions{
+    display:flex;
+    justify-content:flex-end;
+    margin-top:12px;
+}
+.mark-delivered.done{
+    background-color:var(--border-color);
+    color:var(--text-secondary);
+    cursor:default;
+    border-color:var(--border-color);
+}
+.mark-delivered.done:hover{ background-color:var(--border-color); }
+
+.item-pick{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:9px 0;
+    border-bottom:1px solid var(--border-color);
+}
+.item-pick:last-child{ border-bottom:none; }
+.item-pick .item-label{ font-size:14px; }
+.item-pick .item-label b{ display:block; }
+.item-pick .item-label span{
+    color:var(--text-secondary);
+    font-size:12px;
+}
+.qty-control{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+.qty-btn{
+    width:26px;
+    height:26px;
+    border-radius:5px;
+    border:1px solid var(--accent-primary);
+    background:white;
+    color:var(--accent-primary);
+    cursor:pointer;
+    font-weight:bold;
+    line-height:1;
+}
+.qty-btn:hover{ background:#EBF8FF; }
+.qty-value{
+    min-width:16px;
+    text-align:center;
+    font-weight:bold;
+}
+.empty-note{
+    color:var(--text-secondary);
+    font-size:small;
+    text-align:center;
+    padding:20px 0;
+}
+@media(max-width:550px){
+    .clock-card{ flex-direction:column; align-items:flex-start; }
+    .clock-card .btn{ width:100%; text-align:center; }
+    .section-head{ flex-direction:column; align-items:flex-start; }
+}

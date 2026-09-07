@@ -26,13 +26,6 @@
                 <p>Select your role and enter your credentials to sign in.</p>
             </div>
 
-            <div class="role-selector">
-                <div class="role-btn active">Customer</div>
-                <div class="role-btn">Waiter</div>
-                <div class="role-btn">Chef</div>
-                <div class="role-btn">Admin</div>
-            </div>
-
             <form class="login-form" action="#" method="POST">
                 <div class="form-group">
                     <label>Email or Username</label>
@@ -51,8 +44,11 @@
                     <a href="#" class="forgot-pass">Forgot Password?</a>
                 </div>
 
-                <div class="form-actions">
-                    <a href="#" class="btn-submit" id="signInBtn">Sign In</a>
+                <div class="form-actions" style="display: flex; flex-direction: column; gap: 10px;">
+                    <a href="customer-dashboard.html" class="btn-submit">Sign In as Customer</a>
+                    <a href="waiter-dashboard.html" class="btn-submit">Sign In as Waiter</a>
+                    <a href="saker_dashboard.html" class="btn-submit">Sign In as Chef</a>
+                    <a href="admin.html" class="btn-submit">Sign In as Admin</a>
                 </div>
             </form>
 
@@ -61,41 +57,5 @@
             </div>
         </div>
     </div>
-
-    <script>
-        // Role selection logic
-        const roleBtns = document.querySelectorAll('.role-btn');
-        let selectedRole = 'Customer'; // Default
-
-        roleBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                roleBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                selectedRole = btn.textContent.trim();
-            });
-        });
-
-        // Sign in logic
-        const signInBtn = document.getElementById('signInBtn');
-        signInBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            
-            // Store the role for displaying in top right corner
-            localStorage.setItem('loggedInRole', selectedRole);
-            
-            if (selectedRole === 'Admin') {
-                window.location.href = 'admin.html';
-            } else if (selectedRole === 'Customer') {
-                window.location.href = 'customer-dashboard.html';
-            } else if (selectedRole === 'Chef') {
-                window.location.href = 'saker_dashboard.html';
-            } else if (selectedRole === 'Waiter') {
-                window.location.href = 'tables.html';
-            } else {
-                window.location.href = 'index.html';
-            }
-        });
-    </script>
-
 </body>
 </html>

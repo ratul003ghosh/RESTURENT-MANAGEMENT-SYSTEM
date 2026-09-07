@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu - UIU Restaurant Hub</title>
+    <link rel="stylesheet" href="customer.css">
+</head>
+
+<body>
+    <div class="body1">
+        <div class="h1">UIU Restaurant Hub</div>
+        <div class="h2">
+            <a href="customer-dashboard.html">Dashboard</a> <a href="customer-menu.html"
+                style="color:#f97316;font-weight:bold">Menu</a> <a href="customer-reservation.html">Book Table</a> <a
+                href="customer-orders.html">My Orders</a> <a href="customer-bill.html">Bill</a> <a
+                href="customer-chat.html">Chat</a>
+            <a href="customer-login.html">Logout</a>
+        </div>
+    </div>
+    <div class="body2">
+        <div class="container">
+            <div class="page-title">Menu</div>
+            <div class="page-sub">Browse the restaurant menu and order ahead.</div>
+            <div class="search-bar">
+                <input type="text" id="menuSearch" placeholder="Search menu items...">
+            </div>
+            <div class="filter-bar">
+                <button class="category-btn btn" data-category="all">All</button>
+                <button class="category-btn btn2" data-category="pizza">Pizza</button>
+                <button class="category-btn btn2" data-category="burger">Burger</button>
+                <button class="category-btn btn2" data-category="pasta">Pasta</button>
+                <button class="category-btn btn2" data-category="dessert">Dessert</button>
+                <button class="category-btn btn2" data-category="drinks">Drinks</button>
+            </div>
+            <div class="menu-list">
+                <div class="card menu-item food-card" data-category="pizza"><img class="menu-image"
+                        src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=600&q=80"
+                        alt="Margherita Pizza">
+                    <div class="menu-info">
+                        <div class="food-name">Margherita Pizza <span class="price">450 Tk</span></div>
+                        <div class="food-desc">Tomato, mozzarella and basil. Can be custom built.</div><span
+                            class="menu-tag">Pizza</span>
+                    </div>
+                    <div class="menu-actions"><a class="btn full-btn" href="customer-orders.html">Order</a><button
+                            class="btn2 full-btn" data-modal="customizeModal">Customize</button>
+                        <div class="qty-control" style="justify-content:center; margin-top:auto; display:flex; align-items:center; gap:10px; padding:5px 10px; border-radius:5px; color:rgb(0, 0, 0)">
+                            <button type="button" class="qty-btn menu-qty-minus"style="background-color:#f97316; color:white; border:none; cursor:pointer; border:1px solid white; border-radius:5px">&minus;</button>
+                            <span class="qty-value menu-qty-value">1</span>
+                            <button type="button" class="qty-btn menu-qty-plus" style="background-color:#f97316; color:white; border:none; cursor:pointer; border:1px solid white; border-radius:5px">+</button>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card menu-item food-card" data-category="pizza"><img class="menu-image"
+                        src="https://images.unsplash.com/photo-1579751626657-72bc17010498?auto=format&fit=crop&w=600&q=80"
+                        alt="Chicken Pizza">
+                    <div class="menu-info">
+                        <div class="food-name">Chicken Pizza <span class="price">520 Tk</span></div>
+                        <div class="food-desc">Chicken, mozzarella, peppers and tomato sauce.</div><span
+                            class="menu-tag">Pizza</span>
+                    </div>
+                    <div class="menu-actions"><a class="btn full-btn" href="customer-orders.html">Order</a><button
+                            class="btn2 full-btn" data-modal="customizeModal">Customize</button>
+                        <div class="qty-control" style="justify-content:center; margin-top:auto; display:flex; align-items:center; gap:10px; padding:5px 10px; border-radius:5px; color:rgb(0, 0, 0)">
+                            <button type="button" class="qty-btn menu-qty-minus"style="background-color:#f97316; color:white; border:none; cursor:pointer; border:1px solid white; border-radius:5px">&minus;</button>
+                            <span class="qty-value menu-qty-value">1</span>
+                            <button type="button" class="qty-btn menu-qty-plus" style="background-color:#f97316; color:white; border:none; cursor:pointer; border:1px solid white; border-radius:5px">+</button>
+                        </div>
+                        </div>
+                </div>
+                <div class="card menu-item food-card" data-category="burger"><img class="menu-image"
+                        src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=600&q=80"
+                        alt="Beef Burger">
+                    <div class="menu-info">
+                        <div class="food-name">Beef Burger <span class="price">380 Tk</span></div>
+                        <div class="food-desc">Beef patty, cheese and pickle. Can be custom built.</div><span
+                            class="menu-tag">Burgers</span>
+                    </div>
+                    <div class="menu-actions"><a class="btn full-btn" href="customer-orders.html">Order</a><button
+                            class="btn2 full-btn" data-modal="customizeModal">Customize</button>
+                        <div class="qty-control" style="justify-content:center; margin-top:auto; display:flex; align-items:center; gap:10px; padding:5px 10px; border-radius:5px; color:rgb(0, 0, 0)">
+                            <button type="button" class="qty-btn menu-qty-minus"style="background-color:#f97316; color:white; border:none; cursor:pointer; border:1px solid white; border-radius:5px">&minus;</button>
+                            <span class="qty-value menu-qty-value">1</span>
+                            <button type="button" class="qty-btn menu-qty-plus" style="background-color:#f97316; color:white; border:none; cursor:pointer; border:1px solid white; border-radius:5px">+</button>
+                        </div>
+                        </div>
+                </div>
+                <div class="card menu-item food-card" data-category="burger"><img class="menu-image"
+                        src="https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?auto=format&fit=crop&w=600&q=80"
+                        alt="Chicken Burger">
+                    <div class="menu-info">
+                        <div class="food-name">Chicken Burger <span class="price">340 Tk</span></div>
+                        <div class="food-desc">Crispy chicken, lettuce and house sauce.</div><span
+                            class="menu-tag">Burgers</span>
+                    </div>
+                    <div class="menu-actions"><a class="btn full-btn" href="customer-orders.html">Order</a></div>
+                </div>
+                <div class="card menu-item food-card" data-category="pasta"><img class="menu-image"
+                        src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=600&q=80"
+                        alt="Chicken Alfredo">
+                    <div class="menu-info">
+                        <div class="food-name">Chicken Alfredo <span class="price">420 Tk</span></div>
+                        <div class="food-desc">Creamy pasta with grilled chicken.</div><span
+                            class="menu-tag">Pasta</span>
+                    </div>
+                    <div class="menu-actions"><a class="btn full-btn" href="customer-orders.html">Order</a></div>
+                </div>
+                <div class="card menu-item food-card" data-category="pasta"><img class="menu-image"
+                        src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=600&q=80"
+                        alt="Arrabbiata Pasta">
+                    <div class="menu-info">
+                        <div class="food-name">Arrabbiata Pasta <span class="price">360 Tk</span></div>
+                        <div class="food-desc">Pasta in a spicy tomato and herb sauce.</div><span
+                            class="menu-tag">Pasta</span>
+                    </div>
+                    <div class="menu-actions"><a class="btn full-btn" href="customer-orders.html">Order</a></div>
+                </div>
+            </div>
+        </div>
+        <div class="modal" id="customizeModal">
+            <div class="modal-box">
+                <h3>Customize Your Meal</h3>
+                <form id="customizeForm">
+                    <div class="form-group"><label>Size</label><select class="full">
+                            <option>Regular</option>
+                            <option>Large (+100 Tk)</option>
+                            <option>Extra Large (+200 Tk)</option>
+                        </select></div><br>
+                    <div class="form-group"><label>Base</label><select class="full">
+                            <option>Regular</option>
+                            <option>Thin Crust</option>
+                            <option>Stuffed Crust (+50 Tk)</option>
+                        </select></div><br>
+                    <div class="form-group"><label>toppings</label><select class="full">
+                            <option>None</option>
+                            <option>Mushrooms (+40 Tk)</option>
+                            <option>Olives (+30 Tk)</option>
+                            <option>Pepperoni (+50 Tk)</option>
+                            <option>Extra Cheese (+60 Tk)</option>
+                            <option>Chicken (+100 Tk)</option>
+                        </select></div><br>
+                    <div class="form-group"><label>Sauce</label><select class="full">
+                            <option>Tomato sauce</option>
+                            <option>White sauce</option>
+                            <option>Barbecue sauce</option>
+                        </select></div><br>
+                    <div class="right"><button type="button" class="btn2 modal-close">Cancel</button> <button
+                            class="btn" type="submit">Add to Order</button></div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="customer.js"></script>
+</body>
+
+</html>

@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Rustic Fork — Recipe Management</title>
-  <link rel="stylesheet" href="recipes.css">
+  <title>Rustic Fork — Order Queue</title>
+  <link rel="stylesheet" href="saker_orders.css">
 </head>
 <body>
 
@@ -13,8 +13,8 @@
 
   <nav class="nav">
     <a href="dashboard.html"> Dashboard</a>
-    <a href="orders.html"> Orders</a>
-    <a href="recipes.html" class="active"> Recipes</a>
+    <a href="orders.html" class="active"> Orders</a>
+    <a href="recipes.html"> Recipes</a>
     <a href="chat.html"> Chat</a>
   </nav>
 
@@ -34,18 +34,22 @@
 </header>
 
 <main>
-  <div class="rec-head">
+  <div class="queue-head">
     <div>
-      <h1>Recipe Management</h1>
-      <div class="tiny"><span id="recipeCount"></span> recipes in your library</div>
+      <h1>Order Queue</h1>
+      <div class="tiny"><span id="gatedCount">0</span> gated · <span style="color:#20a34a" id="qReady">0</span> ready · <span style="color:#d88412" id="qPrep">0</span> in prep</div>
     </div>
-    <button id="addRecipeBtn" class="btn green">＋ Add Recipe</button>
+    <button id="releaseSort" class="btn"> Release Time <span>⌄</span></button>
   </div>
-  <input id="recipeSearch" class="search" placeholder="⌕  Search recipes..."/>
 
-  <div id="categories" class="cats"></div>
+  <div class="filters">
+    <button class="pill active" data-filter="all">All <span id="allCount">0</span></button>
+    <button class="pill" data-filter="locked"> Locked <span id="lockedCount">0</span></button>
+    <button class="pill" data-filter="unlocked"> Unlocked <span id="unlockedCount">0</span></button>
+    <button class="pill" id="gatingInfo">How gating works</button>
+  </div>
 
-  <div class="recipes" id="recipeGrid"></div>
+  <div id="queue"></div>
 </main>
 
 <div class="modal-backdrop" id="modal">
@@ -54,7 +58,9 @@
 
 <div class="toast" id="toast"></div>
 
-<script src="recipes.js"></script>
+<script src="orders.js"></script>
+
+<script src="chat.js"></script>
 
 </body>
 </html>

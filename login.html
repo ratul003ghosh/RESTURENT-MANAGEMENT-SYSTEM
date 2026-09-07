@@ -52,7 +52,7 @@
                 </div>
 
                 <div class="form-actions">
-                    <a href="index.html" class="btn-submit">Sign In</a>
+                    <a href="#" class="btn-submit" id="signInBtn">Sign In</a>
                 </div>
             </form>
 
@@ -62,5 +62,36 @@
         </div>
     </div>
 
+    <script>
+        // Role selection logic
+        const roleBtns = document.querySelectorAll('.role-btn');
+        let selectedRole = 'Customer'; // Default
+
+        roleBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                roleBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                selectedRole = btn.textContent.trim();
+            });
+        });
+
+        // Sign in logic
+        const signInBtn = document.getElementById('signInBtn');
+        signInBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            if (selectedRole === 'Admin') {
+                window.location.href = 'admin.html';
+            } else if (selectedRole === 'Customer') {
+                window.location.href = 'customer-dashboard.html';
+            } else if (selectedRole === 'Chef') {
+                window.location.href = 'chef.html';
+            } else if (selectedRole === 'Waiter') {
+                window.location.href = 'tables.html';
+            } else {
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
 </body>
 </html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Dashboard - UIU Restaurant Hub</title>
+    <link rel="stylesheet" href="customer.css">
+</head>
+
+<body>
+    <div class="body1">
+        <div class="h1">UIU Restaurant Hub</div>
+        <div class="h2">
+            <a href="customer-dashboard.html" style="color:#f97316;font-weight:bold">Dashboard</a> <a
+                href="customer-menu.html">Menu</a> <a href="customer-reservation.html">Book Table</a> <a
+                href="customer-orders.html">My Orders</a> <a href="customer-bill.html">Bill</a> <a
+                href="customer-chat.html">Chat</a>
+            <a href="customer-login.html">Logout</a>
+        </div>
+    </div>
+    <div class="body2">
+
+        <div class="container">
+            <div class="page-title">Welcome back, mazid!</div>
+            <div class="page-sub">Manage your orders, reservations, and restaurant visits from one place.</div>
+
+            <div class="grid4">
+                <a class="quick" href="customer-menu.html">
+                    <div class="card">
+                        <div class="food-icon"><img src="customerResource\menu.png" alt="Menu"
+                                style="width: 100%; height: auto;"></div>
+                        <div class="quick-title">Browse Menu</div>
+                        <div class="quick-text">Explore today's food and customize selected meals.</div>
+                    </div>
+                </a>
+                <a class="quick" href="customer-reservation.html">
+                    <div class="card">
+                        <div class="food-icon"><img src="customerResource\chair.png" alt="Book Table"
+                                style="width: 100%; height: auto;"></div>
+                        <div class="quick-title">Book a Table</div>
+                        <div class="quick-text">Choose a table and reserve a future time slot.</div>
+                    </div>
+                </a>
+                <a class="quick" href="customer-orders.html">
+                    <div class="card">
+                        <div class="food-icon"><img src="customerResource\add.png" alt="My Orders"
+                                style="width: 100%; height: auto;"></div>
+                        <div class="quick-title">My Orders</div>
+                        <div class="quick-text">Track your current and previous orders.</div>
+                    </div>
+                </a>
+                <a class="quick" href="customer-chat.html">
+                    <div class="card">
+                        <div class="food-icon"><img src="customerResource\chat.png" alt="Chat"
+                                style="width: 100%; height: auto;"></div>
+                        <div class="quick-title">Chat</div>
+                        <div class="quick-text">Contact the restaurant about your visit or order.</div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="section-title">Current Order</div>
+            <div class="section-sub">Order #1024 · placed today at 7:05 PM</div>
+            <div class="card">
+                <div class="order-row"><span><b>Margherita Pizza</b><br><span class="small">Quantity:
+                            1</span></span><b>450 Tk</b></div>
+                <div class="order-row"><span><b>Beef Burger</b><br><span class="small">Quantity: 1 · Extra
+                            cheese</span></span><b>420 Tk</b></div>
+                <div class="right"><span class="status status-blue">In Kitchen</span></div>
+                <div class="progress">
+                    <div class="step done">Placed</div>
+                    <div class="step active">In Kitchen</div>
+                    <div class="step">Ready</div>
+                    <div class="step">Served</div>
+                    <div class="step">Paid</div>
+                </div>
+            </div>
+
+            <div class="grid2">
+                <div>
+                    <div class="section-title">Today's Menu</div>
+                    <div class="section-sub">Popular items you can order now.</div>
+
+                    <div class="card"
+                        style="display:flex; flex-direction: row; justify-content: space-around; flex-wrap: wrap; gap: 20px;">
+
+                        <div class="card menu-preview-card">
+                            <img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=600&q=80"
+                                alt="Margherita Pizza">
+
+                            <div class="menu-preview-info">
+                                <b>Margherita Pizza</b>
+                                <span class="price">450 Tk</span>
+
+                                <div class="food-desc">
+                                    Tomato, mozzarella and basil.
+                                </div>
+
+                                <a class="btn" href="customer-menu.html">Order</a>
+                            </div>
+                        </div>
+
+                        <div class="card menu-preview-card">
+                            <img src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=600&q=80"
+                                alt="Chicken Alfredo">
+
+                            <div class="menu-preview-info">
+                                <b>Chicken Alfredo</b>
+                                <span class="price">420 Tk</span>
+
+                                <div class="food-desc">
+                                    Creamy pasta with grilled chicken.
+                                </div>
+
+                                <a class="btn" href="customer-menu.html">Order</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div>
+                    <div class="section-title">Upcoming Reservation</div>
+                    <div class="section-sub">Your next booking.</div>
+                    <div class="card">
+                        <b>Table 4</b><span class="status status-open" style="float:right">Confirmed</span>
+                        <div class="food-desc">Tomorrow · 8:00 PM<br>4 guests</div>
+                        <a class="btn2" href="customer-reservation.html">View Reservation</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="body3">&copy; 2026 UIU Restaurant Hub</div>
+    <script src="customer.js"></script>
+</body>
+
+</html>

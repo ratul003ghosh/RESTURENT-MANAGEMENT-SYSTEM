@@ -1,0 +1,216 @@
+:root {
+    --bg-main: #F7F9FC;
+    --bg-panel: #FFFFFF;
+    --text-primary: #2D3748;
+    --text-secondary: #718096;
+    --accent-primary: #3182CE;
+    --accent-dark: #1A365D;
+    --border-color: #E2E8F0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body, .body {
+    margin: 0;
+    font-family: -apple-system, "Segoe UI", Arial, sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Header */
+.header {
+    background-color: var(--bg-panel);
+    border-bottom: 1px solid var(--border-color);
+    padding: 20px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.site-logo {
+    font-size: 21px;
+    font-weight: 800;
+    color: var(--accent-dark);
+}
+
+.site-nav {
+    display: flex;
+    align-items: center;
+    gap: 34px;
+}
+
+.site-nav a {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.site-nav a:hover {
+    color: var(--accent-primary);
+}
+
+.btn-primary {
+    background-color: var(--accent-primary);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.btn-primary:hover {
+    background-color: #2b6cb0;
+}
+
+/* Login Container & Card */
+.login-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+}
+
+.login-card {
+    background-color: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    width: 100%;
+    max-width: 440px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.login-header h2 {
+    font-size: 26px;
+    color: var(--accent-dark);
+    margin: 0 0 8px;
+}
+
+.login-header p {
+    color: var(--text-secondary);
+    font-size: 14px;
+    margin: 0;
+}
+
+.role-selector {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    background-color: #EDF2F7;
+    padding: 4px;
+    border-radius: 8px;
+    margin-bottom: 26px;
+}
+
+.role-btn {
+    text-align: center;
+    padding: 8px 4px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.role-btn.active {
+    background-color: var(--bg-panel);
+    color: var(--accent-primary);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.form-group input {
+    padding: 12px 14px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.form-group input:focus {
+    border-color: var(--accent-primary);
+}
+
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+}
+
+.remember-me {
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.forgot-pass {
+    color: var(--accent-primary);
+    font-weight: 500;
+}
+
+.btn-submit {
+    background-color: var(--accent-primary);
+    color: white;
+    text-align: center;
+    padding: 13px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    display: block;
+    transition: background-color 0.2s ease;
+    margin-top: 8px;
+}
+
+.btn-submit:hover {
+    background-color: #2b6cb0;
+}
+
+.login-footer {
+    text-align: center;
+    margin-top: 24px;
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.login-footer a {
+    color: var(--accent-primary);
+    font-weight: 600;
+}

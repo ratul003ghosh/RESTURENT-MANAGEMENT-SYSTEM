@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RMS Restaurant - Table Availability &amp; Reservation</title>
+    <link rel="stylesheet" href="tables.css">
+</head>
+<body class="body">
+
+    <div class="header">
+        <div class="site-logo">RMS Restaurant</div>
+        <div class="site-nav">
+            <a href="index.html">Home</a>
+            <a href="menu.html">Menu</a>
+            <a href="tables.html" class="active">Tables</a>
+            <a href="chat.html">Chat</a>
+            <a href="feedback.html">Feedback</a>
+        </div>
+        <a href="login.html" class="btn-primary btn-sm">Login</a>
+    </div>
+
+    <div class="page-banner">
+        <h1>Table Reservation &amp; Live Availability</h1>
+        <p>Book your preferred table by time slot in real time with instant confirmation.</p>
+    </div>
+
+    <div class="tables-container">
+        <div class="tables-layout">
+            <div class="table-grid-section">
+                <div class="section-title">Floor Map &amp; Table Status</div>
+
+                <div class="status-legend">
+                    <span class="legend-item"><span class="dot dot-open"></span> Available</span>
+                    <span class="legend-item"><span class="dot dot-pending"></span> Booked</span>
+                    <span class="legend-item"><span class="dot dot-busy"></span> Occupied</span>
+                </div>
+
+                <div class="table-grid">
+                    <div class="table-card">
+                        <div class="table-header">
+                            <h3>Table 01</h3>
+                            <span class="status-badge status-open">Available</span>
+                        </div>
+                        <div class="table-info">
+                            <p>Seats: 2 Guests</p>
+                            <p>Location: Window Side</p>
+                        </div>
+                        <button class="btn-select">Select Table</button>
+                    </div>
+
+                    <div class="table-card">
+                        <div class="table-header">
+                            <h3>Table 02</h3>
+                            <span class="status-badge status-pending">Booked (8:00 PM)</span>
+                        </div>
+                        <div class="table-info">
+                            <p>Seats: 4 Guests</p>
+                            <p>Location: Main Dining Hall</p>
+                        </div>
+                        <button class="btn-select disabled" disabled>Reserved</button>
+                    </div>
+
+                    <div class="table-card">
+                        <div class="table-header">
+                            <h3>Table 03</h3>
+                            <span class="status-badge status-busy">Occupied</span>
+                        </div>
+                        <div class="table-info">
+                            <p>Seats: 4 Guests</p>
+                            <p>Location: Patio Terrace</p>
+                        </div>
+                        <button class="btn-select disabled" disabled>In Use</button>
+                    </div>
+
+                    <div class="table-card">
+                        <div class="table-header">
+                            <h3>Table 04</h3>
+                            <span class="status-badge status-open">Available</span>
+                        </div>
+                        <div class="table-info">
+                            <p>Seats: 6 Guests</p>
+                            <p>Location: VIP Lounge</p>
+                        </div>
+                        <button class="btn-select">Select Table</button>
+                    </div>
+
+                    <div class="table-card">
+                        <div class="table-header">
+                            <h3>Table 05</h3>
+                            <span class="status-badge status-open">Available</span>
+                        </div>
+                        <div class="table-info">
+                            <p>Seats: 4 Guests</p>
+                            <p>Location: Main Dining Hall</p>
+                        </div>
+                        <button class="btn-select">Select Table</button>
+                    </div>
+
+                    <div class="table-card">
+                        <div class="table-header">
+                            <h3>Table 06</h3>
+                            <span class="status-badge status-pending">Booked (7:30 PM)</span>
+                        </div>
+                        <div class="table-info">
+                            <p>Seats: 2 Guests</p>
+                            <p>Location: Window Side</p>
+                        </div>
+                        <button class="btn-select disabled" disabled>Reserved</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="booking-form-section">
+                <div class="booking-card">
+                    <h2>Book a Table</h2>
+                    <p>Reserve a table for your upcoming visit.</p>
+
+                    <form class="reservation-form" action="#" method="POST">
+                        <div class="form-group">
+                            <label>Selected Table</label>
+                            <input type="text" value="Table 01 (Window Side - 2 Seats)" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Date</label>
+                            <input type="date" value="2026-09-07" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Time Slot</label>
+                            <select class="form-select">
+                                <option value="12:00">12:00 PM - Lunch</option>
+                                <option value="14:00">02:00 PM - Afternoon</option>
+                                <option value="19:00" selected>07:00 PM - Dinner</option>
+                                <option value="21:00">09:00 PM - Late Dinner</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Number of Guests</label>
+                            <select class="form-select">
+                                <option value="1">1 Person</option>
+                                <option value="2" selected>2 People</option>
+                                <option value="4">4 People</option>
+                                <option value="6">6 People</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Special Notes / Preferences</label>
+                            <textarea rows="3" placeholder="Anniversary, quiet booth, high chair..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-primary btn-block">Confirm Reservation</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="site-footer">
+        <div class="footer-grid">
+            <div>
+                <div class="site-logo" style="color:white; margin-bottom:10px;">RMS Restaurant</div>
+                <p>Fine dining and effortless service, all in one system.</p>
+            </div>
+            <div>
+                <h4>Explore</h4>
+                <a href="menu.html">Menu</a>
+                <a href="tables.html">Tables</a>
+                <a href="feedback.html">Feedback</a>
+            </div>
+            <div>
+                <h4>Account</h4>
+                <a href="login.html">Login</a>
+                <a href="signup.html">Sign Up</a>
+            </div>
+            <div>
+                <h4>Contact</h4>
+                <p>123 Gulshan Avenue, Dhaka</p>
+                <p>hello@rmsrestaurant.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">&copy; 2026 RMS Restaurant. All rights reserved.</div>
+    </div>
+
+</body>
+</html>

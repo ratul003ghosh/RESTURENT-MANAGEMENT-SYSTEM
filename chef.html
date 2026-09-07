@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RMS Restaurant - Kitchen Display System (Chef)</title>
+    <link rel="stylesheet" href="chef.css">
+</head>
+<body class="body">
+
+    <div class="header">
+        <div class="site-logo">RMS Kitchen Display System</div>
+        <div class="kds-info">
+            <span class="active-badge">Chef: Rafiq Ahmed</span>
+            <span class="time-clock">12:45 PM</span>
+        </div>
+        <a href="login.html" class="btn-outline-sm">Log Out</a>
+    </div>
+
+    <div class="chef-container">
+        <div class="kds-columns">
+
+            <!-- Column 1: Incoming Orders -->
+            <div class="kds-column">
+                <div class="column-header header-new">
+                    <h3>Incoming Orders <span class="count">2</span></h3>
+                </div>
+
+                <div class="ticket-card ticket-new">
+                    <div class="ticket-top">
+                        <span class="table-tag">Table 04</span>
+                        <span class="ticket-id">Order #1042</span>
+                    </div>
+                    <div class="ticket-timer">Placed: 4 mins ago</div>
+                    <div class="ticket-items">
+                        <div class="item-row">
+                            <span class="qty">1x</span> Grilled Salmon (Medium Rare)
+                        </div>
+                        <div class="item-row">
+                            <span class="qty">1x</span> Classic Burger
+                        </div>
+                    </div>
+                    <div class="ticket-note">Note: No onions on burger, extra lemon on salmon.</div>
+                    <button class="btn-ticket btn-start">Start Preparation</button>
+                </div>
+
+                <div class="ticket-card ticket-new">
+                    <div class="ticket-top">
+                        <span class="table-tag">Table 01</span>
+                        <span class="ticket-id">Order #1043</span>
+                    </div>
+                    <div class="ticket-timer">Placed: 1 min ago</div>
+                    <div class="ticket-items">
+                        <div class="item-row">
+                            <span class="qty">2x</span> Margherita Pizza
+                        </div>
+                    </div>
+                    <button class="btn-ticket btn-start">Start Preparation</button>
+                </div>
+            </div>
+
+            <!-- Column 2: In Preparation -->
+            <div class="kds-column">
+                <div class="column-header header-prep">
+                    <h3>In Preparation <span class="count">2</span></h3>
+                </div>
+
+                <div class="ticket-card ticket-prep">
+                    <div class="ticket-top">
+                        <span class="table-tag">Table 02</span>
+                        <span class="ticket-id">Order #1040</span>
+                    </div>
+                    <div class="ticket-timer timer-warning">Prep Time: 12 mins</div>
+                    <div class="ticket-items">
+                        <div class="item-row">
+                            <span class="qty">2x</span> Braised Short Rib
+                        </div>
+                        <div class="item-row">
+                            <span class="qty">1x</span> Chicken Fettuccine Alfredo
+                        </div>
+                    </div>
+                    <div class="ticket-note">Note: Extra garlic bread for pasta.</div>
+                    <button class="btn-ticket btn-ready">Mark as Ready</button>
+                </div>
+
+                <div class="ticket-card ticket-prep">
+                    <div class="ticket-top">
+                        <span class="table-tag">Table 05</span>
+                        <span class="ticket-id">Order #1041</span>
+                    </div>
+                    <div class="ticket-timer">Prep Time: 6 mins</div>
+                    <div class="ticket-items">
+                        <div class="item-row">
+                            <span class="qty">1x</span> Classic Burger
+                        </div>
+                    </div>
+                    <button class="btn-ticket btn-ready">Mark as Ready</button>
+                </div>
+            </div>
+
+            <!-- Column 3: Ready to Serve -->
+            <div class="kds-column">
+                <div class="column-header header-ready">
+                    <h3>Ready for Floor <span class="count">1</span></h3>
+                </div>
+
+                <div class="ticket-card ticket-done">
+                    <div class="ticket-top">
+                        <span class="table-tag">Table 03</span>
+                        <span class="ticket-id">Order #1039</span>
+                    </div>
+                    <div class="ticket-timer timer-done">Ready to Pick Up</div>
+                    <div class="ticket-items">
+                        <div class="item-row">
+                            <span class="qty">1x</span> Grilled Salmon
+                        </div>
+                        <div class="item-row">
+                            <span class="qty">1x</span> New York Cheesecake
+                        </div>
+                    </div>
+                    <button class="btn-ticket btn-served">Waiter Picked Up</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="site-footer">
+        <div class="footer-bottom">&copy; 2026 RMS Restaurant System. Kitchen Display System.</div>
+    </div>
+
+</body>
+</html>

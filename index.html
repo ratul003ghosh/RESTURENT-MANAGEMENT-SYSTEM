@@ -1,103 +1,197 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>UIU Restaurant Hub</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RMS Restaurant</title>
     <link rel="stylesheet" href="index.css">
 </head>
-<body>
+<body class="body">
 
-<div class="body1">
-    <div class="h1">UIU Restaurant Hub</div>
-    <div class="h2">
-        <a href="index.html">Home</a>
-        <a href="feedback.html">Feedback</a>
-        <a href="chat.html">Chat</a>
-        <a href="login.html">Login</a>
+    <div class="header">
+        <div class="site-logo">RMS Restaurant</div>
+        <div class="site-nav">
+            <a href="index.html">Home</a>
+            <a href="#menu">Menu</a>
+            <a href="#about">About</a>
+            <a href="#reviews">Reviews</a>
+            <a href="feedback.html">Feedback</a>
+        </div>
+        <a href="login.html" class="btn-primary btn-sm">Login</a>
     </div>
-</div>
 
-<div class="body2">
-
-    <div class="orange">
-        <div class="buy">
-            <div class="b1">Order, Book a Table, and Track Service in One Place</div>
-            <div class="b2">A system for the restaurant floor and the kitchen to work together - admins manage staff and tables,
-                waiters serve guests, chefs fire tickets on time, and customers can browse and book ahead.
+    <div class="hero">
+        <div class="hero-text">
+            <div class="hero-tag">Est. 2015 &middot; Open Daily 11am - 11pm</div>
+            <h1>Fine dining meets effortless booking.</h1>
+            <p>Reserve your table in seconds, explore the full menu before you arrive, and follow your order live from the kitchen to your plate.</p>
+            <div class="hero-actions">
+                <a href="login.html" class="btn-primary">Book a Table</a>
+                <a href="#menu" class="btn-outline">View Menu</a>
             </div>
-            <div class="b3">
-                <div class="btn">Book a Table</div>
-                <div class="btn2">Browse Menu</div>
+        </div>
+        <div class="hero-media">
+            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80" alt="RMS Restaurant Interior Dining">
+        </div>
+    </div>
+
+    <div class="stats-strip">
+        <div class="stat-block">
+            <div class="stat-num">9+</div>
+            <div class="stat-cap">Years Serving</div>
+        </div>
+        <div class="stat-block">
+            <div class="stat-num">40+</div>
+            <div class="stat-cap">Menu Items</div>
+        </div>
+        <div class="stat-block">
+            <div class="stat-num">14</div>
+            <div class="stat-cap">Tables Available</div>
+        </div>
+        <div class="stat-block">
+            <div class="stat-num">4.8&#9733;</div>
+            <div class="stat-cap">Average Rating</div>
+        </div>
+    </div>
+
+    <div class="section" id="menu">
+        <div class="section-heading">
+            <div class="section-tag">From The Kitchen</div>
+            <h2>Signature Dishes</h2>
+            <p>A taste of what's cooking today</p>
+        </div>
+        <div class="menu-preview-grid">
+            <div class="dish-card">
+                <div class="dish-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=600&q=80" alt="Grilled Salmon">
+                </div>
+                <div class="dish-body">
+                    <div class="dish-top">
+                        <h3>Grilled Salmon</h3>
+                        <span class="dish-price">$18.50</span>
+                    </div>
+                    <p>Pan-seared salmon, lemon butter sauce, seasonal vegetables.</p>
+                </div>
+            </div>
+            <div class="dish-card">
+                <div class="dish-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=600&q=80" alt="Classic Burger">
+                </div>
+                <div class="dish-body">
+                    <div class="dish-top">
+                        <h3>Classic Burger</h3>
+                        <span class="dish-price">$12.00</span>
+                    </div>
+                    <p>Beef patty, cheddar, lettuce, tomato. Fully customizable.</p>
+                </div>
+            </div>
+            <div class="dish-card">
+                <div class="dish-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?auto=format&fit=crop&w=600&q=80" alt="Margherita Pizza">
+                </div>
+                <div class="dish-body">
+                    <div class="dish-top">
+                        <h3>Margherita Pizza</h3>
+                        <span class="dish-price">$14.00</span>
+                    </div>
+                    <p>Wood-fired, San Marzano tomato, fresh mozzarella, basil.</p>
+                </div>
+            </div>
+            <div class="dish-card">
+                <div class="dish-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80" alt="Braised Short Rib">
+                </div>
+                <div class="dish-body">
+                    <div class="dish-top">
+                        <h3>Braised Short Rib</h3>
+                        <span class="dish-price">$22.00</span>
+                    </div>
+                    <p>Slow-braised beef short rib, red wine reduction, creamy garlic mash.</p>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="sec-title">Who Uses the System</div>
-    <div class="sec-sub">Every role gets its own dashboard</div>
-    <div class="grid4">
-        <div class="card">
-            <div class="card-title">Customer</div>
-            <div class="card-text">Browse the menu, build a custom meal, and book a table by time slot.</div>
+    <div class="about-section" id="about">
+        <div class="about-media">
+            <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80" alt="RMS Restaurant Kitchen and Dining Area">
         </div>
-        <div class="card">
-            <div class="card-title">Waiter</div>
-            <div class="card-text">Clock in, take up tables, place orders, and mark them delivered.</div>
-        </div>
-        <div class="card">
-            <div class="card-title">Chef</div>
-            <div class="card-text">See orders once prep time is done, add recipes, mark them served.</div>
-        </div>
-        <div class="card">
-            <div class="card-title">Admin</div>
-            <div class="card-text">Add staff, approve accounts and menu items, generate reports.</div>
-        </div>
-    </div>
-
-    <div class="sec-title">Today's Menu</div>
-    <div class="sec-sub">Anyone can view the menu, no account needed</div>
-    <div class="grid3">
-        <div class="card">
-            <div class="card-title">Margherita Pizza <span class="price">450 Tk</span></div>
-            <div class="card-text">Tomato, mozzarella, basil. Can be custom built.</div>
-        </div>
-        <div class="card">
-            <div class="card-title">Beef Burger <span class="price">380 Tk</span></div>
-            <div class="card-text">Beef patty, cheese, pickle. Can be custom built.</div>
-        </div>
-        <div class="card">
-            <div class="card-title">Chicken Alfredo <span class="price">420 Tk</span></div>
-            <div class="card-text">Creamy pasta with grilled chicken.</div>
+        <div class="about-text">
+            <div class="section-tag">Our Story</div>
+            <h2>A kitchen and a floor that work as one system.</h2>
+            <p>RMS Restaurant was built around a simple idea: service should feel effortless on both sides of the pass. Admins manage staff and tables, waiters run the floor, chefs fire tickets on time, and guests can browse, book, and order ahead - all from one connected system.</p>
+            <div class="about-points">
+                <div class="about-point">
+                    <span class="point-dot"></span> Real-time order tracking from kitchen to table
+                </div>
+                <div class="about-point">
+                    <span class="point-dot"></span> Reserve by time slot, no phone calls needed
+                </div>
+                <div class="about-point">
+                    <span class="point-dot"></span> Build your own pizza, burger, or bowl
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="sec-title">Table Availability</div>
-    <div class="sec-sub">Reserve for a future time slot</div>
-    <div class="grid4">
-        <div class="card">
-            <div class="card-title">Table 1</div>
-            <div class="card-text">Seats 2</div>
-            <div class="status status-open">Available</div>
+    <div class="section" id="reviews">
+        <div class="section-heading">
+            <div class="section-tag">Guest Reviews</div>
+            <h2>What People Are Saying</h2>
         </div>
-        <div class="card">
-            <div class="card-title">Table 2</div>
-            <div class="card-text">Seats 4</div>
-            <div class="status status-pending">Booked 8:00 PM</div>
-        </div>
-        <div class="card">
-            <div class="card-title">Table 3</div>
-            <div class="card-text">Seats 4</div>
-            <div class="status status-busy">Occupied</div>
-        </div>
-        <div class="card">
-            <div class="card-title">Table 4</div>
-            <div class="card-text">Seats 6</div>
-            <div class="status status-open">Available</div>
+        <div class="review-grid">
+            <div class="review-card">
+                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p>"The short rib was incredible and our waiter kept us updated the entire time. Booking online took less than a minute."</p>
+                <div class="review-name">Priya Sen</div>
+            </div>
+            <div class="review-card">
+                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p>"Loved building my own burger from the menu. Kitchen was fast even on a busy Saturday night."</p>
+                <div class="review-name">Farhan Rahman</div>
+            </div>
+            <div class="review-card">
+                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+                <p>"Booking a patio table by time slot was so easy, and the staff remembered our reservation notes."</p>
+                <div class="review-name">Ishita Kabir</div>
+            </div>
         </div>
     </div>
 
-</div>
+    <div class="cta-banner">
+        <h2>Ready for your next table?</h2>
+        <p>Sign in to reserve a time slot, or browse the menu first.</p>
+        <div class="hero-actions" style="justify-content:center;">
+            <a href="login.html" class="btn-primary">Book a Table</a>
+            <a href="feedback.html" class="btn-outline-white">Leave Feedback</a>
+        </div>
+    </div>
 
-<div class="body3">
-    <div>&copy; 2026 UIU Restaurant Hub</div>
-</div>
+    <div class="site-footer">
+        <div class="footer-grid">
+            <div>
+                <div class="site-logo" style="color:white; margin-bottom:10px;">RMS Restaurant</div>
+                <p>Fine dining and effortless service, all in one system.</p>
+            </div>
+            <div>
+                <h4>Explore</h4>
+                <a href="#menu">Menu</a>
+                <a href="#about">About</a>
+                <a href="#reviews">Reviews</a>
+            </div>
+            <div>
+                <h4>Account</h4>
+                <a href="login.html">Login</a>
+                <a href="feedback.html">Feedback</a>
+            </div>
+            <div>
+                <h4>Contact</h4>
+                <p>123 Gulshan Avenue, Dhaka</p>
+                <p>hello@rmsrestaurant.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">&copy; 2026 RMS Restaurant. All rights reserved.</div>
+    </div>
 
 </body>
 </html>

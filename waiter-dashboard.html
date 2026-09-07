@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waiter Portal - RMS Restaurant</title>
+    <link rel="stylesheet" href="customer.css">
+    <link rel="stylesheet" href="waiter.css">
+</head>
+
+<body>
+    <div class="body1">
+        <div class="h1">RMS Restaurant</div>
+        <div class="h2">
+            <a href="waiter-dashboard.html" style="color:#3182CE;font-weight:bold">Dashboard</a>
+            <a href="waiter-login.html">Logout</a>
+        </div>
+    </div>
+    <div class="body2">
+
+        <div class="container">
+            <div class="page-title">Waiter Portal</div>
+            <div class="page-sub">Welcome, Sarah &mdash; manage your shift, tables, and orders.</div>
+
+            <div class="card clock-card">
+                <div class="clock-status">
+                    <span class="clock-dot" id="clockDot"></span>
+                    <div>
+                        <div class="clock-name" id="clockLabel">Clocked Out</div>
+                        <div class="shift-time" id="shiftTime">Not currently on shift</div>
+                    </div>
+                </div>
+                <button class="btn btn-clock-in" id="clockToggle">Clock In</button>
+            </div>
+
+            <div class="section-title" style="margin-top:28px">My Tables</div>
+            <div class="section-sub">Tap an available table to take it up for your shift. Tap one of your tables to
+                release it.</div>
+
+            <div class="table-grid" id="tableGrid">
+                <div class="table-card available" data-table="Table 1">
+                    <div class="table-top">
+                        <span class="table-number">Table 1</span>
+                        <span class="table-status available-status">Available</span>
+                    </div>
+                    <div class="table-icon">TABLE</div>
+                    <p>2 Seats</p>
+                </div>
+
+                <div class="table-card mine" data-table="Table 2">
+                    <div class="table-top">
+                        <span class="table-number">Table 2</span>
+                        <span class="table-status">Your Table</span>
+                    </div>
+                    <div class="table-icon">TABLE</div>
+                    <p>4 Seats</p>
+                </div>
+
+                <div class="table-card occupied">
+                    <div class="table-top">
+                        <span class="table-number">Table 3</span>
+                        <span class="table-status occupied-status">Occupied</span>
+                    </div>
+                    <div class="table-icon">TABLE</div>
+                    <p>4 Seats &middot; served by another waiter</p>
+                </div>
+
+                <div class="table-card available" data-table="Table 4">
+                    <div class="table-top">
+                        <span class="table-number">Table 4</span>
+                        <span class="table-status available-status">Available</span>
+                    </div>
+                    <div class="table-icon">TABLE</div>
+                    <p>6 Seats</p>
+                </div>
+
+                <div class="table-card available" data-table="Table 5">
+                    <div class="table-top">
+                        <span class="table-number">Table 5</span>
+                        <span class="table-status available-status">Available</span>
+                    </div>
+                    <div class="table-icon">TABLE</div>
+                    <p>2 Seats</p>
+                </div>
+
+                <div class="table-card occupied">
+                    <div class="table-top">
+                        <span class="table-number">Table 6</span>
+                        <span class="table-status occupied-status">Occupied</span>
+                    </div>
+                    <div class="table-icon">TABLE</div>
+                    <p>6 Seats &middot; served by another waiter</p>
+                </div>
+            </div>
+
+            <div class="section-head">
+                <div>
+                    <div class="section-title">Active Orders</div>
+                    <div class="section-sub">Orders placed for your tables.</div>
+                </div>
+                <button class="btn" id="addOrderBtn" data-modal="addOrderModal">+ Add Order</button>
+            </div>
+
+            <div class="card" id="ordersList">
+                <div class="order-card" data-order="1024">
+                    <div class="order-top">
+                        <span><span class="order-table-tag">Table 2</span><b>Order #1024</b><br>
+                            <span class="small">Alex &middot; placed 7:05 PM</span>
+                        </span>
+                        <span class="status status-blue">In Kitchen</span>
+                    </div>
+                    <div class="food-desc">Margherita Pizza &times; 1 &middot; Beef Burger &times; 1</div>
+                    <div class="progress">
+                        <div class="step done">Placed</div>
+                        <div class="step active">In Kitchen</div>
+                        <div class="step">Ready</div>
+                        <div class="step">Served</div>
+                        <div class="step">Delivered</div>
+                    </div>
+                    <div class="order-actions">
+                        <button class="btn2 mark-delivered">Mark Delivered</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="addOrderModal">
+            <div class="modal-box">
+                <h3>Add Order for Customer</h3>
+                <form id="addOrderForm">
+                    <div class="form-grid">
+                        <div class="form-group"><label>Table</label>
+                            <select class="full" id="orderTable" required></select>
+                        </div>
+                        <div class="form-group"><label>Customer Name</label>
+                            <input class="full" type="text" id="orderCustomer" placeholder="Walk-in / name" required>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="section-title" style="margin:0 0 5px;font-size:16px">Items</div>
+                    <div id="menuPickList">
+                        <div class="item-pick" data-item="Margherita Pizza" data-price="450">
+                            <span class="item-label"><b>Margherita Pizza</b><span>450 Tk</span></span>
+                            <span class="qty-control">
+                                <button type="button" class="qty-btn qty-minus">&minus;</button>
+                                <span class="qty-value">0</span>
+                                <button type="button" class="qty-btn qty-plus">+</button>
+                            </span>
+                        </div>
+                        <div class="item-pick" data-item="Chicken Pizza" data-price="520">
+                            <span class="item-label"><b>Chicken Pizza</b><span>520 Tk</span></span>
+                            <span class="qty-control">
+                                <button type="button" class="qty-btn qty-minus">&minus;</button>
+                                <span class="qty-value">0</span>
+                                <button type="button" class="qty-btn qty-plus">+</button>
+                            </span>
+                        </div>
+                        <div class="item-pick" data-item="Beef Burger" data-price="380">
+                            <span class="item-label"><b>Beef Burger</b><span>380 Tk</span></span>
+                            <span class="qty-control">
+                                <button type="button" class="qty-btn qty-minus">&minus;</button>
+                                <span class="qty-value">0</span>
+                                <button type="button" class="qty-btn qty-plus">+</button>
+                            </span>
+                        </div>
+                        <div class="item-pick" data-item="Chicken Burger" data-price="340">
+                            <span class="item-label"><b>Chicken Burger</b><span>340 Tk</span></span>
+                            <span class="qty-control">
+                                <button type="button" class="qty-btn qty-minus">&minus;</button>
+                                <span class="qty-value">0</span>
+                                <button type="button" class="qty-btn qty-plus">+</button>
+                            </span>
+                        </div>
+                        <div class="item-pick" data-item="Chicken Alfredo" data-price="420">
+                            <span class="item-label"><b>Chicken Alfredo</b><span>420 Tk</span></span>
+                            <span class="qty-control">
+                                <button type="button" class="qty-btn qty-minus">&minus;</button>
+                                <span class="qty-value">0</span>
+                                <button type="button" class="qty-btn qty-plus">+</button>
+                            </span>
+                        </div>
+                        <div class="item-pick" data-item="Arrabbiata Pasta" data-price="360">
+                            <span class="item-label"><b>Arrabbiata Pasta</b><span>360 Tk</span></span>
+                            <span class="qty-control">
+                                <button type="button" class="qty-btn qty-minus">&minus;</button>
+                                <span class="qty-value">0</span>
+                                <button type="button" class="qty-btn qty-plus">+</button>
+                            </span>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group"><label>Notes</label>
+                        <textarea class="full" id="orderNotes" rows="2"
+                            placeholder="Allergies, special requests..."></textarea>
+                    </div>
+                    <br>
+                    <div class="right"><button type="button" class="btn2 modal-close">Cancel</button>
+                        <button class="btn" type="submit">Add Order</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <div class="body3">&copy; 2026 UIU Restaurant Hub</div>
+    <script src="waiter.js"></script>
+</body>
+
+</html>

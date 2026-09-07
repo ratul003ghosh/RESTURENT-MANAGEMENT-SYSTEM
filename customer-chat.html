@@ -1,45 +1,51 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chat - UIU Restaurant Hub</title>
-<link rel="stylesheet" href="customer.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat - UIU Restaurant Hub</title>
+    <link rel="stylesheet" href="customer.css">
 </head>
+
 <body>
-<div class="body1">
-    <div class="h1">UIU Restaurant Hub</div>
-    <div class="h2">
-        <a href="customer-dashboard.html">Dashboard</a> <a href="customer-menu.html">Menu</a> <a href="customer-reservation.html">Book Table</a> <a href="customer-orders.html">My Orders</a> <a href="customer-bill.html">Bill</a> <a href="customer-chat.html" style="color:#f97316;font-weight:bold" >Chat</a>
-        <a href="customer-login.html">Logout</a>
-    </div>
-</div>
-<div class="body2">
-
-<div class="container">
-    <div class="page-title">Chat</div>
-    <div class="page-sub">Contact the restaurant about your order or reservation.</div>
-    <div class="card chat">
-        <div class="chat-list">
-            <div class="chat-user">Restaurant Support</div>
-            <div class="small" style="padding:12px">Order #1024</div>
-            <div class="small" style="padding:12px">Reservation #R204</div>
+    <div class="body1">
+        <div class="h1">RMS Restaurant</div>
+        <div class="h2">
+            <a href="customer-dashboard.html">Dashboard</a> <a href="customer-menu.html">Menu</a> <a
+                href="customer-reservation.html">Book Table</a> <a href="customer-orders.html">My Orders</a> <a
+                href="customer-bill.html">Bill</a> <a href="customer-chat.html"
+                style="color:#f97316;font-weight:bold">Chat</a>
+            <a href="customer-login.html">Logout</a>
         </div>
-        <div class="chat-main">
-            <div class="messages">
-                <div class="message restaurant">Hello! How can we help you today?</div>
-                
+    </div>
+    <div class="body2">
+
+        <div class="container">
+            <div class="page-title">Chat</div>
+            <div class="page-sub">Contact the restaurant about your order or reservation.</div>
+            <div class="card chat">
+                <div class="chat-list">
+                    <div class="chat-user">Restaurant Support</div>
+                    <div class="small" style="padding:12px">Order #1024</div>
+                    <div class="small" style="padding:12px">Reservation #R204</div>
+                </div>
+                <div class="chat-main">
+                    <div class="messages">
+                        <div class="message restaurant">Hello! How can we help you today?</div>
+
+                    </div>
+                    <form id="chatForm" class="chat-input">
+                        <input id="chatMessage" type="text" placeholder="Type your message..." required>
+                        <button class="btn" type="submit">Send</button>
+                    </form>
+                </div>
             </div>
-            <form id="chatForm" class="chat-input">
-                <input id="chatMessage" type="text" placeholder="Type your message..." required>
-                <button class="btn" type="submit">Send</button>
-            </form>
         </div>
-    </div>
-</div>
 
-</div>
-<div class="body3">&copy; 2026 UIU Restaurant Hub</div>
-<script src="customer.js"></script>
+    </div>
+    <div class="body3">&copy; 2026 UIU Restaurant Hub</div>
+    <script src="customer.js"></script>
 </body>
+
 </html>

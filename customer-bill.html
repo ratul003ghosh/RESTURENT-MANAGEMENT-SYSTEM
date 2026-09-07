@@ -1,44 +1,53 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bill - UIU Restaurant Hub</title>
-<link rel="stylesheet" href="customer.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bill - UIU Restaurant Hub</title>
+    <link rel="stylesheet" href="customer.css">
 </head>
+
 <body>
-<div class="body1">
-    <div class="h1">UIU Restaurant Hub</div>
-    <div class="h2">
-        <a href="customer-dashboard.html">Dashboard</a> <a href="customer-menu.html">Menu</a> <a href="customer-reservation.html">Book Table</a> <a href="customer-orders.html">My Orders</a> <a href="customer-bill.html" style="color:#f97316;font-weight:bold" >Bill</a> <a href="customer-chat.html">Chat</a>
-        <a href="customer-login.html">Logout</a>
-    </div>
-</div>
-<div class="body2">
-
-<div class="container">
-    <div class="page-title">Bill</div>
-    <div class="page-sub">Bill for Order #1024 · 7 September 2026</div>
-    <div class="grid2">
-        <div class="card">
-            <b>UIU Restaurant Hub</b>
-            <div class="food-desc">Customer: Alex<br>Order: #1024<br>Table: 4</div>
-            <div class="bill-row"><span>Margherita Pizza × 1</span><span>450 Tk</span></div>
-            <div class="bill-row"><span>Beef Burger × 1</span><span>420 Tk</span></div>
-            <div class="bill-row"><span>Subtotal</span><span>870 Tk</span></div>
-            <div class="bill-row"><span>Tax (5%)</span><span>43.50 Tk</span></div>
-            <div class="bill-row"><span class="total">Total</span><span class="total">913.50 Tk</span></div>
-            <br><button class="btn" id="printBill">Download / Print Bill</button>
-        </div>
-        <div>
-            <div class="card"><b>Payment Status</b><div class="food-desc">The order has been served. Payment is currently pending.</div><span class="status status-pending">Pending Payment</span></div>
-            <div class="notice">The final bill includes the item subtotal and applicable tax.</div>
+    <div class="body1">
+        <div class="h1">RMS Restaurant</div>
+        <div class="h2">
+            <a href="customer-dashboard.html">Dashboard</a> <a href="customer-menu.html">Menu</a> <a
+                href="customer-reservation.html">Book Table</a> <a href="customer-orders.html">My Orders</a> <a
+                href="customer-bill.html" style="color:#f97316;font-weight:bold">Bill</a> <a
+                href="customer-chat.html">Chat</a>
+            <a href="customer-login.html">Logout</a>
         </div>
     </div>
-</div>
+    <div class="body2">
 
-</div>
-<div class="body3">&copy; 2026 UIU Restaurant Hub</div>
-<script src="customer.js"></script>
+        <div class="container">
+            <div class="page-title">Bill</div>
+            <div class="page-sub">Bill for Order #1024 · 7 September 2026</div>
+            <div class="grid2">
+                <div class="card">
+                    <b>UIU Restaurant Hub</b>
+                    <div class="food-desc">Customer: Alex<br>Order: #1024<br>Table: 4</div>
+                    <div class="bill-row"><span>Margherita Pizza × 1</span><span>450 Tk</span></div>
+                    <div class="bill-row"><span>Beef Burger × 1</span><span>420 Tk</span></div>
+                    <div class="bill-row"><span>Subtotal</span><span>870 Tk</span></div>
+                    <div class="bill-row"><span>Tax (5%)</span><span>43.50 Tk</span></div>
+                    <div class="bill-row"><span class="total">Total</span><span class="total">913.50 Tk</span></div>
+                    <br><button class="btn" id="printBill">Download / Print Bill</button>
+                </div>
+                <div>
+                    <div class="card"><b>Payment Status</b>
+                        <div class="food-desc">The order has been served. Payment is currently pending.</div><span
+                            class="status status-pending">Pending Payment</span>
+                    </div>
+                    <div class="notice">The final bill includes the item subtotal and applicable tax.</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="body3">&copy; 2026 UIU Restaurant Hub</div>
+    <script src="customer.js"></script>
 </body>
+
 </html>

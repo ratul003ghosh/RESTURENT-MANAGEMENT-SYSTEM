@@ -80,12 +80,15 @@
         signInBtn.addEventListener('click', (e) => {
             e.preventDefault();
             
+            // Store the role for displaying in top right corner
+            localStorage.setItem('loggedInRole', selectedRole);
+            
             if (selectedRole === 'Admin') {
                 window.location.href = 'admin.html';
             } else if (selectedRole === 'Customer') {
                 window.location.href = 'customer-dashboard.html';
             } else if (selectedRole === 'Chef') {
-                window.location.href = 'chef.html';
+                window.location.href = 'saker_dashboard.html';
             } else if (selectedRole === 'Waiter') {
                 window.location.href = 'tables.html';
             } else {
@@ -93,5 +96,5 @@
             }
         });
     </script>
-</body>
+<script src="auth.js"></script>`n</body>
 </html>

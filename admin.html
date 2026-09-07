@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RMS Restaurant - Admin Dashboard</title>
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body class="body">
+
+    <div class="header">
+        <div class="site-logo">RMS Admin Portal</div>
+        <div class="site-nav">
+            <a href="admin.html" class="active">Overview</a>
+            <a href="chef.html">Chef KDS</a>
+            <a href="tables.html">Tables</a>
+            <a href="menu.html">Menu</a>
+            <a href="index.html">Main Site</a>
+        </div>
+        <a href="login.html" class="btn-outline-sm">Log Out</a>
+    </div>
+
+    <div class="admin-container">
+        <div class="dashboard-title">
+            <h1>Restaurant Performance Overview</h1>
+            <p>Real-time analytics, staff management, and menu approvals.</p>
+        </div>
+
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-num">$4,280.50</div>
+                <div class="metric-label">Today's Revenue</div>
+                <div class="metric-trend trend-up">+14% vs yesterday</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-num">124</div>
+                <div class="metric-label">Orders Processed</div>
+                <div class="metric-trend trend-up">18 pending kitchen</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-num">12 / 14</div>
+                <div class="metric-label">Tables Occupied</div>
+                <div class="metric-trend">85% Capacity</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-num">8</div>
+                <div class="metric-label">Staff On Shift</div>
+                <div class="metric-trend">4 Waiters, 3 Chefs, 1 Manager</div>
+            </div>
+        </div>
+
+        <div class="admin-content-grid">
+            <div class="panel-card">
+                <div class="panel-header">
+                    <h2>Active Staff Members</h2>
+                    <button class="btn-sm-primary">+ Add New Staff</button>
+                </div>
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Staff Name</th>
+                            <th>Role</th>
+                            <th>Shift</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Rafiq Ahmed</td>
+                            <td>Head Chef</td>
+                            <td>11 AM - 7 PM</td>
+                            <td><span class="badge-status status-active">On Duty</span></td>
+                            <td><button class="btn-action">Manage</button></td>
+                        </tr>
+                        <tr>
+                            <td>Kazi Karim</td>
+                            <td>Floor Waiter</td>
+                            <td>3 PM - 11 PM</td>
+                            <td><span class="badge-status status-active">On Duty</span></td>
+                            <td><button class="btn-action">Manage</button></td>
+                        </tr>
+                        <tr>
+                            <td>Nadia Islam</td>
+                            <td>Waitress</td>
+                            <td>11 AM - 7 PM</td>
+                            <td><span class="badge-status status-break">On Break</span></td>
+                            <td><button class="btn-action">Manage</button></td>
+                        </tr>
+                        <tr>
+                            <td>Tariq Hassan</td>
+                            <td>Sous Chef</td>
+                            <td>5 PM - 1 AM</td>
+                            <td><span class="badge-status status-offline">Off Duty</span></td>
+                            <td><button class="btn-action">Manage</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="panel-card">
+                <div class="panel-header">
+                    <h2>Menu Approvals &amp; Requests</h2>
+                </div>
+                <div class="approval-list">
+                    <div class="approval-item">
+                        <div class="item-details">
+                            <h4>Special Chef Recipe: Smoked Ribeye</h4>
+                            <p>Submitted by Chef Rafiq - Target Price: $28.00</p>
+                        </div>
+                        <div class="item-actions">
+                            <button class="btn-approve">Approve</button>
+                            <button class="btn-reject">Reject</button>
+                        </div>
+                    </div>
+
+                    <div class="approval-item">
+                        <div class="item-details">
+                            <h4>New Drink: Berry Mango Smoothie</h4>
+                            <p>Submitted by Barista Nadia - Target Price: $6.50</p>
+                        </div>
+                        <div class="item-actions">
+                            <button class="btn-approve">Approve</button>
+                            <button class="btn-reject">Reject</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="site-footer">
+        <div class="footer-bottom">&copy; 2026 RMS Restaurant System. Admin Dashboard.</div>
+    </div>
+
+</body>
+</html>

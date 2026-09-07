@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RMS Restaurant - Customer Feedback</title>
+    <link rel="stylesheet" href="feedback.css">
+</head>
+<body class="body">
+
+    <div class="header">
+        <div class="site-logo">RMS Restaurant</div>
+        <div class="site-nav">
+            <a href="index.html">Home</a>
+            <a href="menu.html">Menu</a>
+            <a href="tables.html">Tables</a>
+            <a href="chat.html">Chat</a>
+            <a href="feedback.html" class="active">Feedback</a>
+        </div>
+        <a href="login.html" class="btn-primary btn-sm">Login</a>
+    </div>
+
+    <div class="page-banner">
+        <h1>We Value Your Feedback</h1>
+        <p>Help us elevate your dining experience by sharing your thoughts and ratings.</p>
+    </div>
+
+    <div class="feedback-container">
+        <div class="feedback-layout">
+
+            <!-- Feedback Submission Form -->
+            <div class="feedback-form-card">
+                <h2>Leave Your Review</h2>
+                <p>Tell us about your recent food quality, table service, or overall experience.</p>
+
+                <form class="feedback-form" action="#" method="POST">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Your Name</label>
+                            <input type="text" placeholder="Priya Sen" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" placeholder="priya@example.com" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Feedback Category</label>
+                        <select class="form-select">
+                            <option value="food">Food Quality &amp; Taste</option>
+                            <option value="service">Waiter &amp; Floor Service</option>
+                            <option value="booking">Online Table Booking</option>
+                            <option value="ambience">Restaurant Ambience</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Overall Rating</label>
+                        <div class="rating-stars">
+                            <label><input type="radio" name="stars" value="5" checked> &#9733;&#9733;&#9733;&#9733;&#9733; (5/5 Excellent)</label>
+                            <label><input type="radio" name="stars" value="4"> &#9733;&#9733;&#9733;&#9733;&#9734; (4/5 Very Good)</label>
+                            <label><input type="radio" name="stars" value="3"> &#9733;&#9733;&#9733;&#9734;&#9734; (3/5 Average)</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Your Review / Comments</label>
+                        <textarea rows="4" placeholder="Write your detailed feedback here..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-primary btn-block">Submit Feedback</button>
+                </form>
+            </div>
+
+            <!-- Recent Reviews Feed -->
+            <div class="recent-reviews-section">
+                <h2>Recent Guest Reviews</h2>
+
+                <div class="review-feed">
+                    <div class="feed-card">
+                        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                        <p>"The braised short rib was incredible and our waiter kept us updated the entire time. Booking online took less than a minute."</p>
+                        <div class="review-author">
+                            <span class="author-name">Priya Sen</span>
+                            <span class="review-date">September 5, 2026</span>
+                        </div>
+                    </div>
+
+                    <div class="feed-card">
+                        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                        <p>"Loved building my own burger from the menu options! The kitchen was fast even on a super busy Saturday night."</p>
+                        <div class="review-author">
+                            <span class="author-name">Farhan Rahman</span>
+                            <span class="review-date">September 4, 2026</span>
+                        </div>
+                    </div>
+
+                    <div class="feed-card">
+                        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+                        <p>"Booking a patio table by time slot was effortless, and the staff remembered our anniversary request!"</p>
+                        <div class="review-author">
+                            <span class="author-name">Ishita Kabir</span>
+                            <span class="review-date">September 2, 2026</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="site-footer">
+        <div class="footer-grid">
+            <div>
+                <div class="site-logo" style="color:white; margin-bottom:10px;">RMS Restaurant</div>
+                <p>Fine dining and effortless service, all in one system.</p>
+            </div>
+            <div>
+                <h4>Explore</h4>
+                <a href="menu.html">Menu</a>
+                <a href="tables.html">Tables</a>
+                <a href="feedback.html">Feedback</a>
+            </div>
+            <div>
+                <h4>Account</h4>
+                <a href="login.html">Login</a>
+                <a href="signup.html">Sign Up</a>
+            </div>
+            <div>
+                <h4>Contact</h4>
+                <p>123 Gulshan Avenue, Dhaka</p>
+                <p>hello@rmsrestaurant.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">&copy; 2026 RMS Restaurant. All rights reserved.</div>
+    </div>
+
+</body>
+</html>

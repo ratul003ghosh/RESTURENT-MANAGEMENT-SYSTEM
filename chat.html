@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RMS Restaurant - Table Service Chat</title>
+    <link rel="stylesheet" href="chat.css">
+</head>
+<body class="body">
+
+    <div class="header">
+        <div class="site-logo">RMS Restaurant</div>
+        <div class="site-nav">
+            <a href="index.html">Home</a>
+            <a href="menu.html">Menu</a>
+            <a href="tables.html">Tables</a>
+            <a href="chat.html" class="active">Live Chat</a>
+            <a href="feedback.html">Feedback</a>
+        </div>
+        <a href="login.html" class="btn-primary btn-sm">Login</a>
+    </div>
+
+    <div class="chat-container">
+        <div class="chat-layout">
+
+            <!-- Sidebar -->
+            <div class="chat-sidebar">
+                <div class="sidebar-header">
+                    <h3>Active Conversations</h3>
+                </div>
+                <div class="chat-list">
+                    <div class="chat-item active">
+                        <div class="chat-avatar">T03</div>
+                        <div class="chat-meta">
+                            <div class="chat-name">Table 03 (Your Table)</div>
+                            <div class="chat-preview">Waiter: Your salmon is on the way!</div>
+                        </div>
+                        <div class="chat-time">12:44 PM</div>
+                    </div>
+
+                    <div class="chat-item">
+                        <div class="chat-avatar">KIT</div>
+                        <div class="chat-meta">
+                            <div class="chat-name">Kitchen Chef Direct</div>
+                            <div class="chat-preview">Chef: Short rib prep 5 mins left</div>
+                        </div>
+                        <div class="chat-time">12:40 PM</div>
+                    </div>
+
+                    <div class="chat-item">
+                        <div class="chat-avatar">SUP</div>
+                        <div class="chat-meta">
+                            <div class="chat-name">Customer Helpdesk</div>
+                            <div class="chat-preview">Support: How can we assist you today?</div>
+                        </div>
+                        <div class="chat-time">12:30 PM</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Chat Area -->
+            <div class="chat-main">
+                <div class="chat-header">
+                    <div class="active-user-info">
+                        <h3>Table 03 Service Channel</h3>
+                        <span class="online-indicator"><span class="dot-online"></span> Waiter Kazi Assigned</span>
+                    </div>
+                    <div class="quick-actions">
+                        <button class="btn-action-chip">🔔 Call Waiter</button>
+                        <button class="btn-action-chip">💧 Water Request</button>
+                        <button class="btn-action-chip">🧾 Request Bill</button>
+                    </div>
+                </div>
+
+                <div class="chat-messages">
+                    <div class="message msg-received">
+                        <div class="msg-sender">Waiter Kazi</div>
+                        <div class="msg-text">Hello! Welcome to Table 03. I have received your order for 1x Grilled Salmon and 1x New York Cheesecake.</div>
+                        <div class="msg-time">12:40 PM</div>
+                    </div>
+
+                    <div class="message msg-sent">
+                        <div class="msg-text">Hi Kazi! Could we please get extra lemon slices and ice water for the table?</div>
+                        <div class="msg-time">12:42 PM</div>
+                    </div>
+
+                    <div class="message msg-received">
+                        <div class="msg-sender">Waiter Kazi</div>
+                        <div class="msg-text">Certainly! Bringing lemon slices and fresh ice water right away. Your salmon is on the way from the kitchen!</div>
+                        <div class="msg-time">12:44 PM</div>
+                    </div>
+                </div>
+
+                <div class="chat-input-area">
+                    <input type="text" placeholder="Type a message or request to your waiter..." class="chat-input">
+                    <button class="btn-send">Send Message</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="site-footer">
+        <div class="footer-bottom">&copy; 2026 RMS Restaurant. Live Table Service.</div>
+    </div>
+
+</body>
+</html>

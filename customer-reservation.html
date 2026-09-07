@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book a Table - UIU Restaurant Hub</title>
+    <link rel="stylesheet" href="customer.css">
+</head>
+
+<body>
+    <div class="body1">
+        <div class="h1">UIU Restaurant Hub</div>
+        <div class="h2">
+            <a href="customer-dashboard.html">Dashboard</a> <a href="customer-menu.html">Menu</a> <a
+                href="customer-reservation.html" style="color:#f97316;font-weight:bold">Book Table</a> <a
+                href="customer-orders.html">My Orders</a> <a href="customer-bill.html">Bill</a> <a
+                href="customer-chat.html">Chat</a>
+            <a href="customer-login.html">Logout</a>
+        </div>
+    </div>
+    <div class="body2">
+
+        <div class="container">
+            <div class="page-title">Book a Table</div>
+            <div class="page-sub">Reserve a table for a future date and time.</div>
+            <div class="grid2">
+                <div class="card">
+                    <div class="form-grid">
+                        <div class="form-group"><label>Date</label><input class="full" type="date" value="2026-09-08">
+                        </div>
+                        <div class="form-group"><label>Guests</label><select class="full">
+                                <option>2</option>
+                                <option>4</option>
+                                <option>6</option>
+                            </select></div>
+                    </div>
+                    <div class="section-title">Available Time Slots</div>
+                    <div>
+                        <span class="slot">6:00 PM</span><span class="slot">6:30 PM</span><span
+                            class="slot disabled">7:00 PM</span>
+                        <span class="slot">7:30 PM</span><span class="slot">8:00 PM</span><span class="slot">8:30
+                            PM</span>
+                    </div>
+                    <div class="card">
+                        <h2>Choose a Table</h2>
+                        <p class="page-sub">Select an available table for your reservation.</p>
+
+                        <div class="table-grid">
+
+                            <div class="table-card available" data-table="Table 1">
+                                <div class="table-top">
+                                    <span class="table-number">Table 1</span>
+                                    <span class="table-status available-status">Available</span>
+                                </div>
+
+                                <div class="table-icon">TABLE</div>
+
+                                <p>2 Seats</p>
+                            </div>
+
+                            <div class="table-card available" data-table="Table 2">
+                                <div class="table-top">
+                                    <span class="table-number">Table 2</span>
+                                    <span class="table-status available-status">Available</span>
+                                </div>
+
+                                <div class="table-icon">TABLE</div>
+
+                                <p>4 Seats</p>
+                            </div>
+
+                            <div class="table-card occupied">
+                                <div class="table-top">
+                                    <span class="table-number">Table 3</span>
+                                    <span class="table-status occupied-status">Occupied</span>
+                                </div>
+
+                                <div class="table-icon">TABLE</div>
+
+                                <p>4 Seats</p>
+                            </div>
+
+                            <div class="table-card available" data-table="Table 4">
+                                <div class="table-top">
+                                    <span class="table-number">Table 4</span>
+                                    <span class="table-status available-status">Available</span>
+                                </div>
+
+                                <div class="table-icon">TABLE</div>
+
+                                <p>6 Seats</p>
+                            </div>
+
+                            <div class="table-card available" data-table="Table 5">
+                                <div class="table-top">
+                                    <span class="table-number">Table 5</span>
+                                    <span class="table-status available-status">Available</span>
+                                </div>
+
+                                <div class="table-icon">TABLE</div>
+
+                                <p>2 Seats</p>
+                            </div>
+
+                            <div class="table-card occupied">
+                                <div class="table-top">
+                                    <span class="table-number">Table 6</span>
+                                    <span class="table-status occupied-status">Occupied</span>
+                                </div>
+
+                                <div class="table-icon">TABLE</div>
+
+                                <p>6 Seats</p>
+                            </div>
+
+                        </div>
+
+                        <div class="selected-table">
+                            Selected Table:
+                            <strong id="selectedTable">None</strong>
+                        </div>
+
+                        <button class="btn full" id="confirmReservation">
+                            Confirm Reservation
+                        </button>
+                    </div>
+                
+                </div>
+                <div>
+                    <div class="card">
+                        <b>Your Upcoming Reservation</b>
+                        <div class="food-desc"><b>Table 4</b><br>Tomorrow · 8:00 PM<br>4 guests</div>
+                        <span class="status status-open">Confirmed</span>
+                    </div>
+                    <div class="section-title">Table Status</div>
+                    <div class="card">
+                        <div class="order-row"><span>Table 1 · 2 seats</span><span
+                                class="status status-open">Available</span></div>
+                        <div class="order-row"><span>Table 2 · 4 seats</span><span
+                                class="status status-pending">Booked</span></div>
+                        <div class="order-row"><span>Table 3 · 4 seats</span><span
+                                class="status status-busy">Occupied</span></div>
+                        <div class="order-row"><span>Table 4 · 6 seats</span><span
+                                class="status status-open">Available</span></div>
+                        <div class="order-row"><span>Table 5 · 2 seats</span><span
+                                class="status status-open">Available</span></div>
+                        <div class="order-row"><span>Table 6 · 6 seats</span><span
+                                class="status status-busy">Occupied</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="body3">&copy; 2026 UIU Restaurant Hub</div>
+    <script src="customer.js"></script>
+</body>
+
+</html>

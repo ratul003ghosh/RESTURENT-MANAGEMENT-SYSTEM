@@ -22,7 +22,7 @@ body{
     display: grid;
     grid-template-columns: auto auto;
     align-items: center;
-    height: 10%;
+    height: 50px;
 }
 .h1{
     color: white;

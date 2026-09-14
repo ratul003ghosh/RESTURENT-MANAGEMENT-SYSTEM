@@ -24,7 +24,6 @@ a {
     color: inherit;
 }
 
-/* Header */
 .header {
     background-color: var(--bg-panel);
     border-bottom: 1px solid var(--border-color);
@@ -74,7 +73,6 @@ a {
     border-radius: 6px;
 }
 
-/* Page Banner */
 .page-banner {
     background: linear-gradient(135deg, var(--accent-dark), var(--accent-primary));
     color: white;
@@ -93,7 +91,6 @@ a {
     margin: 0;
 }
 
-/* About Layout */
 .about-container {
     max-width: 1240px;
     margin: 0 auto;
@@ -173,7 +170,6 @@ a {
     flex-shrink: 0;
 }
 
-/* Values Grid */
 .values-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -201,7 +197,6 @@ a {
     line-height: 1.6;
 }
 
-/* Footer */
 .site-footer {
     background-color: #1A202C;
     color: #CBD5E0;

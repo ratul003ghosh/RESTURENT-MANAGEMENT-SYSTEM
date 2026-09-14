@@ -25,7 +25,6 @@ a {
     color: inherit;
 }
 
-/* Header */
 .header {
     background-color: var(--bg-panel);
     border-bottom: 1px solid var(--border-color);
@@ -75,7 +74,6 @@ a {
     border-radius: 6px;
 }
 
-/* Page Banner */
 .page-banner {
     background: linear-gradient(135deg, var(--accent-dark), var(--accent-primary));
     color: white;
@@ -94,14 +92,12 @@ a {
     margin: 0;
 }
 
-/* Reviews Container */
 .reviews-container {
     max-width: 1240px;
     margin: 0 auto;
     padding: 50px 48px 80px;
 }
 
-/* Rating Summary Card */
 .rating-summary-card {
     background-color: var(--bg-panel);
     border: 1px solid var(--border-color);
@@ -169,7 +165,6 @@ a {
     border-radius: 10px;
 }
 
-/* Review Grid */
 .review-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -227,7 +222,6 @@ a {
     font-weight: 600;
 }
 
-/* Leave Review CTA */
 .leave-review-cta {
     background-color: var(--bg-panel);
     border: 2px dashed var(--accent-primary);
@@ -247,7 +241,6 @@ a {
     margin: 0 0 24px;
 }
 
-/* Footer */
 .site-footer {
     background-color: #1A202C;
     color: #CBD5E0;

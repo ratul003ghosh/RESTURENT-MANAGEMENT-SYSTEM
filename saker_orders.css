@@ -839,7 +839,6 @@ main {
   border-color: var(--accent-primary);
 }
 
-/* ---- time & shift clock ---- */
 .time-layout {
   max-width: 420px;
   margin: 20px auto;
@@ -1041,7 +1040,6 @@ main {
   border-radius: 10px;
 }
 
-/* ---- toast ---- */
 .toast {
   position: fixed;
   right: 20px;
@@ -1061,7 +1059,6 @@ main {
   transform: translateY(0);
 }
 
-/* ---- responsive ---- */
 @media (max-width: 900px) {
   .dash-board {
     grid-template-columns: 1fr;

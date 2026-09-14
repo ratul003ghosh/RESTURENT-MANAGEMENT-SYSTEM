@@ -27,7 +27,6 @@ a {
     color: inherit;
 }
 
-/* Header */
 .header {
     background-color: var(--bg-panel);
     border-bottom: 1px solid var(--border-color);
@@ -68,7 +67,6 @@ a {
     font-weight: 600;
 }
 
-/* Chat Layout */
 .chat-container {
     flex: 1;
     max-width: 1240px;
@@ -88,7 +86,6 @@ a {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
 }
 
-/* Sidebar */
 .chat-sidebar {
     border-right: 1px solid var(--border-color);
     display: flex;
@@ -164,7 +161,6 @@ a {
     color: var(--text-secondary);
 }
 
-/* Chat Main Area */
 .chat-main {
     display: flex;
     flex-direction: column;
@@ -304,7 +300,6 @@ a {
     background-color: #2b6cb0;
 }
 
-/* Footer */
 .site-footer {
     background-color: #1A202C;
     color: #A0AEC0;

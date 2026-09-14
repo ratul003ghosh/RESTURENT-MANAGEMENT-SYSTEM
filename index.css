@@ -28,7 +28,7 @@ p {
     line-height: 1.6;
 }
 
-/* buttons */
+
 .btn-primary {
     background-color: var(--accent-primary);
     color: white;
@@ -69,7 +69,7 @@ p {
     border-radius: 6px;
 }
 
-/* header */
+
 .header {
     background-color: var(--bg-panel);
     border-bottom: 1px solid var(--border-color);
@@ -83,7 +83,7 @@ p {
     font-size: 21px;
     font-weight: 800;
     color: var(--accent-dark);
-    letter-spacing: -0.01em;
+    
 }
 
 .site-nav {
@@ -102,7 +102,7 @@ p {
     color: var(--accent-primary);
 }
 
-/* hero */
+
 .hero {
     max-width: 1240px;
     margin: 0 auto;
@@ -161,7 +161,7 @@ p {
     transform: scale(1.03);
 }
 
-/* stats strip */
+
 .stats-strip {
     background-color: var(--accent-dark);
     display: flex;
@@ -188,7 +188,7 @@ p {
     margin-top: 6px;
 }
 
-/* footer */
+
 .site-footer {
     background-color: #1A202C;
     color: #CBD5E0;

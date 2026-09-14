@@ -24,7 +24,6 @@ a {
     color: inherit;
 }
 
-/* Header */
 .header {
     background-color: var(--accent-dark);
     color: white;
@@ -69,7 +68,6 @@ a {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Admin Container */
 .admin-container {
     max-width: 1240px;
     margin: 0 auto;
@@ -88,7 +86,6 @@ a {
     margin: 0 0 32px;
 }
 
-/* Metrics */
 .metrics-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -128,7 +125,6 @@ a {
     font-weight: 700;
 }
 
-/* Admin Panels */
 .admin-content-grid {
     display: grid;
     grid-template-columns: 1.8fr 1fr;
@@ -210,7 +206,6 @@ a {
     background-color: #EDF2F7;
 }
 
-/* Approvals */
 .approval-list {
     display: flex;
     flex-direction: column;
@@ -266,7 +261,6 @@ a {
     cursor: pointer;
 }
 
-/* Footer */
 .site-footer {
     background-color: #1A202C;
     color: #A0AEC0;

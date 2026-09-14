@@ -912,7 +912,6 @@ main {
   border-radius: 5px;
 }
 
-/* ---- modal / popup ---- */
 .modal-backdrop {
   position: fixed;
   top: 0;
@@ -1062,7 +1061,6 @@ main {
   transform: translateY(0);
 }
 
-/* ---- responsive ---- */
 @media (max-width: 900px) {
   .dash-board {
     grid-template-columns: 1fr;

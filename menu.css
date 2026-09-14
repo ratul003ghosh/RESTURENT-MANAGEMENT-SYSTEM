@@ -24,7 +24,6 @@ a {
     color: inherit;
 }
 
-/* Header */
 .header {
     background-color: var(--bg-panel);
     border-bottom: 1px solid var(--border-color);
@@ -78,7 +77,6 @@ a {
     border-radius: 6px;
 }
 
-/* Page Banner */
 .page-banner {
     background: linear-gradient(135deg, var(--accent-dark), var(--accent-primary));
     color: white;
@@ -97,7 +95,6 @@ a {
     margin: 0;
 }
 
-/* Menu Container */
 .menu-container {
     max-width: 1240px;
     margin: 0 auto;
@@ -240,7 +237,6 @@ a {
     background-color: #2b6cb0;
 }
 
-/* Builder Section */
 .builder-section {
     margin-top: 40px;
 }
@@ -288,7 +284,6 @@ a {
     text-align: right;
 }
 
-/* Footer */
 .site-footer {
     background-color: #1A202C;
     color: #CBD5E0;

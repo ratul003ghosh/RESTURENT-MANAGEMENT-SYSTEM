@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Rustic Fork — Kitchen Chat</title>
+  <link rel="stylesheet" href="saker_chat.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="brand"><span class="logo"></span> Rustic Fork <span class="sub">· KITCHEN</span></div>
+
+  <nav class="nav">
+    <a href="saker_dashboard.html"> Dashboard</a>
+    <a href="saker_orders.html"> Orders</a>
+    <a href="saker_recipes.html"> Recipes</a>
+    <a href="saker_chat.html" class="active"> Chat</a>
+  </nav>
+
+  <div class="spacer"></div>
+
+  <button id="shiftChip" class="shift"> Off Shift</button>
+
+  <div class="account-wrap">
+    <button id="avatarBtn" class="avatar">E</button>
+    <div id="accountMenu" class="account-menu">
+      <div class="account-name"><b id="menuChef">Elena K.</b><span>Kitchen · Grill Station</span></div>
+      <button id="accountDetailsBtn"> Account details</button>
+      <button id="switchChefBtn"> Switch chef</button>
+      <a href="saker_time.html"> Time &amp; shifts</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div style="margin-bottom:15px"><h1>Kitchen Chat</h1><p class="muted">Team messages, service notes and handoffs.</p></div>
+  <div class="chat-shell">
+    <aside class="chat-list" id="chatPeople"></aside>
+    <section class="chat-main">
+      <div class="chat-head"><b id="chatWith">Kitchen Team</b><div class="tiny" id="chatStatus">Online</div></div>
+      <div class="messages" id="messages"></div>
+      <form class="chat-compose" id="chatForm"><input id="messageInput" autocomplete="off" placeholder="Message the kitchen…"/><button class="btn green">Send</button></form>
+    </section>
+  </div>
+</main>
+
+<div class="modal-backdrop" id="modal">
+  <div class="modal" id="modalBody"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="saker_chat.js"></script>   <!--kono problem jate na hoi,tai shob gula JS file ei call kore dise-->
+<script src="saker_dashboard.js"></script>
+<script src="saker_orders.js"></script>
+<script src="saker_recipes.js"></script>
+<script src="saker_time.js"></script>
+  
+  
+
+</body>
+</html>

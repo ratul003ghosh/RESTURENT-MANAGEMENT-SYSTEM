@@ -388,8 +388,6 @@ input:focus,select:focus,textarea:focus{
     outline: none;
     border-color: var(--accent-primary);
 }
-/* Table Selection */
-
 .table-grid{
     display:grid;
     grid-template-columns:repeat(3, 1fr);
@@ -555,7 +553,6 @@ input:focus,select:focus,textarea:focus{
     }
 }
 
-/* picture-based menu */
 .menu-list{display:flex;flex-direction:column;gap:12px;}
 .menu-item{display:grid;grid-template-columns:175px 1fr 155px;gap:20px;align-items:center;padding:12px;}
 .menu-image{width:175px;height:125px;object-fit:cover;border-radius:5px;display:block;}

@@ -27,19 +27,19 @@
             <div class="grid2">
                 <div class="card">
                     <div class="form-grid">
-                        <div class="form-group"><label>Date</label><input class="full" type="date" value="2026-09-08">
+                        <div class="form-group"><label for="reservationDate">Date</label><input class="full" id="reservationDate" type="date">
                         </div>
-                        <div class="form-group"><label>Guests</label><select class="full">
-                                <option>2</option>
-                                <option>4</option>
-                                <option>6</option>
+                        <div class="form-group"><label for="guestCount">Guests</label><select class="full" id="guestCount">
+                            <option value="2">2</option>
+                            <option value="4">4</option>
+                            <option value="6">6</option>
                             </select></div>
                     </div>
                     <div class="section-title">Available Time Slots</div>
                     <div>
-                        <span class="slot">6:00 PM</span><span class="slot">6:30 PM</span><span
-                            class="slot disabled">7:00 PM</span>
-                        <span class="slot">7:30 PM</span><span class="slot">8:00 PM</span><span class="slot">8:30
+                        <span class="slot" data-time="18:00">6:00 PM</span><span class="slot" data-time="18:30">6:30 PM</span><span
+                            class="slot" data-time="19:00">7:00 PM</span>
+                        <span class="slot" data-time="19:30">7:30 PM</span><span class="slot" data-time="20:00">8:00 PM</span><span class="slot" data-time="20:30">8:30
                             PM</span>
                     </div>
                     <div class="card">
@@ -48,7 +48,7 @@
 
                         <div class="table-grid">
 
-                            <div class="table-card available" data-table="Table 1">
+                            <div class="table-card available reservation-table" data-table="Table 1">
                                 <div class="table-top">
                                     <span class="table-number">Table 1</span>
                                     <span class="table-status available-status">Available</span>
@@ -59,7 +59,7 @@
                                 <p>2 Seats</p>
                             </div>
 
-                            <div class="table-card available" data-table="Table 2">
+                            <div class="table-card available reservation-table" data-table="Table 2">
                                 <div class="table-top">
                                     <span class="table-number">Table 2</span>
                                     <span class="table-status available-status">Available</span>
@@ -70,10 +70,10 @@
                                 <p>4 Seats</p>
                             </div>
 
-                            <div class="table-card occupied">
+                            <div class="table-card available reservation-table" data-table="Table 3">
                                 <div class="table-top">
                                     <span class="table-number">Table 3</span>
-                                    <span class="table-status occupied-status">Occupied</span>
+                                    <span class="table-status available-status">Available</span>
                                 </div>
 
                                 <div class="table-icon">TABLE</div>
@@ -81,7 +81,7 @@
                                 <p>4 Seats</p>
                             </div>
 
-                            <div class="table-card available" data-table="Table 4">
+                            <div class="table-card available reservation-table" data-table="Table 4">
                                 <div class="table-top">
                                     <span class="table-number">Table 4</span>
                                     <span class="table-status available-status">Available</span>
@@ -92,7 +92,7 @@
                                 <p>6 Seats</p>
                             </div>
 
-                            <div class="table-card available" data-table="Table 5">
+                            <div class="table-card available reservation-table" data-table="Table 5">
                                 <div class="table-top">
                                     <span class="table-number">Table 5</span>
                                     <span class="table-status available-status">Available</span>
@@ -103,10 +103,10 @@
                                 <p>2 Seats</p>
                             </div>
 
-                            <div class="table-card occupied">
+                            <div class="table-card available reservation-table" data-table="Table 6">
                                 <div class="table-top">
                                     <span class="table-number">Table 6</span>
-                                    <span class="table-status occupied-status">Occupied</span>
+                                    <span class="table-status available-status">Available</span>
                                 </div>
 
                                 <div class="table-icon">TABLE</div>
@@ -124,17 +124,18 @@
                         <button class="btn full" id="confirmReservation">
                             Confirm Reservation
                         </button>
+                        <p id="reservationMessage" role="status"></p>
                     </div>
 
                 </div>
                 <div>
-                    <div class="card">
+                    <div class="card" id="upcomingReservationCard">
                         <b>Your Upcoming Reservation</b>
-                        <div class="food-desc"><b>Table 4</b><br>Tomorrow · 8:00 PM<br>4 guests</div>
-                        <span class="status status-open">Confirmed</span>
+                        <div class="food-desc">Loading your reservations...</div>
+                        <span class="status status-open">-</span>
                     </div>
                     <div class="section-title">Table Status</div>
-                    <div class="card">
+                    <div class="card" id="reservationTableStatus">
                         <div class="order-row"><span>Table 1 · 2 seats</span><span
                                 class="status status-open">Available</span></div>
                         <div class="order-row"><span>Table 2 · 4 seats</span><span
@@ -154,6 +155,7 @@
 
     </div>
     <div class="body3">&copy; 2026 UIU Restaurant Hub</div>
+    <script src="api-client.js"></script>
     <script src="customer.js"></script>
 
 </body>

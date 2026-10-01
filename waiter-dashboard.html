@@ -57,7 +57,7 @@
                     <p>4 Seats</p>
                 </div>
 
-                <div class="table-card occupied">
+                <div class="table-card occupied" data-table="Table 3">
                     <div class="table-top">
                         <span class="table-number">Table 3</span>
                         <span class="table-status occupied-status">Occupied</span>
@@ -84,7 +84,7 @@
                     <p>2 Seats</p>
                 </div>
 
-                <div class="table-card occupied">
+                <div class="table-card occupied" data-table="Table 6">
                     <div class="table-top">
                         <span class="table-number">Table 6</span>
                         <span class="table-status occupied-status">Occupied</span>
@@ -102,27 +102,7 @@
                 <button class="btn" id="addOrderBtn" data-modal="addOrderModal">+ Add Order</button>
             </div>
 
-            <div class="card" id="ordersList">
-                <div class="order-card" data-order="1024">
-                    <div class="order-top">
-                        <span><span class="order-table-tag">Table 2</span><b>Order #1024</b><br>
-                            <span class="small">Ratul &middot; placed 7:05 PM</span>
-                        </span>
-                        <span class="status status-blue">In Kitchen</span>
-                    </div>
-                    <div class="food-desc">Margherita Pizza &times; 1 &middot; Beef Burger &times; 1</div>
-                    <div class="progress">
-                        <div class="step done">Placed</div>
-                        <div class="step active">In Kitchen</div>
-                        <div class="step">Ready</div>
-                        <div class="step">Served</div>
-                        <div class="step">Delivered</div>
-                    </div>
-                    <div class="order-actions">
-                        <button class="btn2 mark-delivered">Mark Delivered</button>
-                    </div>
-                </div>
-            </div>
+            <div class="card" id="ordersList"><p class="empty-note">Loading orders...</p></div>
         </div>
 
         <div class="modal" id="addOrderModal">
@@ -204,6 +184,7 @@
 
     </div>
     <div class="body3">&copy; 2026 UIU Restaurant Hub</div>
+    <script src="api-client.js"></script>
     <script src="waiter.js"></script>
 </body>
 

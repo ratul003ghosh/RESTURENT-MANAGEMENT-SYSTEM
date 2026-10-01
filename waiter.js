@@ -1,173 +1,274 @@
 document.addEventListener("DOMContentLoaded", function () {
-
-    /* ---------- Clock In / Out ---------- */
     const clockToggle = document.getElementById("clockToggle");
     const clockDot = document.getElementById("clockDot");
     const clockLabel = document.getElementById("clockLabel");
     const shiftTime = document.getElementById("shiftTime");
-    let clockedIn = false;
+    const orderList = document.getElementById("ordersList");
 
-    if (clockToggle) {
-        clockToggle.addEventListener("click", function () {
-            clockedIn = !clockedIn;
-            const now = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-
-            if (clockedIn) {
-                clockDot.classList.add("on");
-                clockLabel.textContent = "Clocked In";
-                shiftTime.textContent = "On shift since " + now;
-                clockToggle.textContent = "Clock Out";
-                clockToggle.classList.remove("btn-clock-in");
-                clockToggle.classList.add("btn-clock-out");
-            } else {
-                clockDot.classList.remove("on");
-                clockLabel.textContent = "Clocked Out";
-                shiftTime.textContent = "Shift ended at " + now;
-                clockToggle.textContent = "Clock In";
-                clockToggle.classList.remove("btn-clock-out");
-                clockToggle.classList.add("btn-clock-in");
-            }
-        });
+    function showError(error) {
+        window.alert(error.message);
     }
 
-    /* ---------- Take up / release tables ---------- */
+    function renderClock(shift) {
+        const clockedIn = Boolean(shift);
+        clockDot.classList.toggle("on", clockedIn);
+        clockLabel.textContent = clockedIn ? "Clocked In" : "Clocked Out";
+        shiftTime.textContent = shift ? "On shift since " + new Date(shift.clock_in.replace(" ", "T")).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "Not currently on shift";
+        clockToggle.textContent = clockedIn ? "Clock Out" : "Clock In";
+        clockToggle.classList.toggle("btn-clock-in", !clockedIn);
+        clockToggle.classList.toggle("btn-clock-out", clockedIn);
+        clockToggle.dataset.mode = clockedIn ? "out" : "in";
+    }
+
     function refreshTableSelect() {
         const select = document.getElementById("orderTable");
         if (!select) return;
-        const myTables = document.querySelectorAll("#tableGrid .table-card.mine");
-        select.innerHTML = "";
-        if (myTables.length === 0) {
-            const opt = document.createElement("option");
-            opt.textContent = "No tables assigned yet";
-            opt.disabled = true;
-            opt.selected = true;
-            select.appendChild(opt);
+        select.replaceChildren();
+        const ownTables = document.querySelectorAll("#tableGrid .table-card.mine");
+        if (!ownTables.length) {
+            const option = new Option("No tables assigned yet", "");
+            option.disabled = true;
+            option.selected = true;
+            select.appendChild(option);
             return;
         }
-        myTables.forEach(function (card) {
-            const opt = document.createElement("option");
-            opt.value = card.dataset.table;
-            opt.textContent = card.dataset.table;
-            select.appendChild(opt);
+        ownTables.forEach(function (card) {
+            select.appendChild(new Option(card.dataset.table, card.dataset.tableId));
         });
     }
 
-    document.querySelectorAll("#tableGrid .table-card").forEach(function (card) {
-        if (card.classList.contains("occupied")) return;
-
-        card.addEventListener("click", function () {
-            if (card.classList.contains("available")) {
-                card.classList.remove("available");
-                card.classList.add("mine");
-                card.querySelector(".table-status").textContent = "Your Table";
-                card.querySelector(".table-status").className = "table-status";
-            } else if (card.classList.contains("mine")) {
-                card.classList.remove("mine");
+    async function loadTables() {
+        const result = await window.rmsRequest("waiter_tables");
+        const currentUser = await window.rmsRequest("me");
+        result.tables.forEach(function (table) {
+            const card = Array.from(document.querySelectorAll("#tableGrid .table-card")).find(function (candidate) {
+                return candidate.dataset.table === table.table_number;
+            });
+            if (!card) return;
+            card.dataset.tableId = table.id;
+            card.classList.remove("available", "mine", "occupied");
+            let label = "Available";
+            if (table.waiter_id) {
+                if (Number(table.waiter_id) === Number(currentUser.user.id)) {
+                    card.classList.add("mine");
+                    label = "Your Table";
+                } else {
+                    card.classList.add("occupied");
+                    label = "Taken";
+                }
+            } else if (table.status === "occupied") {
+                card.classList.add("occupied");
+                label = "Occupied";
+            } else {
                 card.classList.add("available");
-                card.querySelector(".table-status").textContent = "Available";
-                card.querySelector(".table-status").className = "table-status available-status";
             }
-            refreshTableSelect();
+            const status = card.querySelector(".table-status");
+            status.textContent = label;
+            status.className = "table-status" + (label === "Available" ? " available-status" : label === "Taken" || label === "Occupied" ? " occupied-status" : "");
         });
-    });
+        refreshTableSelect();
+    }
 
-    /* ---------- Modal open/close ---------- */
+    async function loadOrders() {
+        const result = await window.rmsRequest("waiter_orders");
+        orderList.replaceChildren();
+        if (!result.orders.length) {
+            orderList.appendChild(Object.assign(document.createElement("p"), { className: "empty-note", textContent: "No orders for your tables yet." }));
+            return;
+        }
+        const steps = ["Placed", "In Kitchen", "Ready", "Delivered", "Paid"];
+        result.orders.forEach(function (order) {
+            const card = document.createElement("div");
+            card.className = "order-card";
+            card.dataset.order = order.id;
+            const top = document.createElement("div");
+            top.className = "order-top";
+            const summary = document.createElement("span");
+            const tableTag = document.createElement("span");
+            tableTag.className = "order-table-tag";
+            tableTag.textContent = order.table_number || "Pre-order";
+            summary.append(tableTag, document.createTextNode(" "));
+            const orderTitle = document.createElement("b");
+            orderTitle.textContent = "Order #" + order.id;
+            summary.append(orderTitle, document.createElement("br"));
+            const timestamp = document.createElement("span");
+            timestamp.className = "small";
+            timestamp.textContent = order.customer_name + " · " + new Date(order.created_at.replace(" ", "T")).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+            summary.appendChild(timestamp);
+            const visibleStatus = order.status === "Served" ? "Delivered" : order.status;
+            const badge = document.createElement("span");
+            badge.className = "status " + (visibleStatus === "Paid" || visibleStatus === "Delivered" ? "status-open" : "status-blue");
+            badge.textContent = visibleStatus;
+            top.append(summary, badge);
+            card.append(top);
+            const items = document.createElement("div");
+            items.className = "food-desc";
+            items.textContent = order.item_summary || "";
+            card.appendChild(items);
+            const progress = document.createElement("div");
+            progress.className = "progress";
+            const stepIndex = order.status === "Served" ? 3 : steps.indexOf(order.status);
+            steps.slice(0, 4).forEach(function (step, index) {
+                const stepElement = document.createElement("div");
+                stepElement.className = "step" + (index < stepIndex ? " done" : index === stepIndex ? " active" : "");
+                stepElement.textContent = step;
+                progress.appendChild(stepElement);
+            });
+            card.appendChild(progress);
+            if (order.status === "Ready") {
+                const actions = document.createElement("div");
+                actions.className = "order-actions";
+                const deliver = document.createElement("button");
+                deliver.type = "button";
+                deliver.className = "btn2 mark-delivered";
+                deliver.dataset.orderId = order.id;
+                deliver.textContent = "Mark Delivered";
+                actions.appendChild(deliver);
+                card.appendChild(actions);
+            }
+            orderList.appendChild(card);
+        });
+    }
+
+    if (clockToggle) {
+        window.rmsRequest("waiter_clock").then(function (result) {
+            renderClock(result.shift);
+        }).catch(showError);
+        clockToggle.addEventListener("click", async function () {
+            try {
+                const result = await window.rmsRequest("waiter_clock", { method: "POST", body: { mode: clockToggle.dataset.mode } });
+                renderClock(result.shift);
+                await loadTables();
+            } catch (error) {
+                showError(error);
+            }
+        });
+    }
+
+    const tableGrid = document.getElementById("tableGrid");
+    if (tableGrid) {
+        loadTables().catch(showError);
+        tableGrid.addEventListener("click", async function (event) {
+            const card = event.target.closest(".table-card");
+            if (!card || !card.dataset.tableId || card.classList.contains("occupied")) return;
+            try {
+                await window.rmsRequest("waiter_tables", {
+                    method: "POST",
+                    body: { table_id: Number(card.dataset.tableId), mode: card.classList.contains("mine") ? "release" : "take" }
+                });
+                await loadTables();
+            } catch (error) {
+                showError(error);
+            }
+        });
+    }
+
     document.querySelectorAll("[data-modal]").forEach(function (button) {
         button.addEventListener("click", function () {
             const modal = document.getElementById(button.dataset.modal);
-            if (!modal) return;
-            if (modal.id === "addOrderModal") refreshTableSelect();
-            modal.classList.add("show");
+            if (modal) {
+                refreshTableSelect();
+                modal.classList.add("show");
+            }
         });
     });
     document.querySelectorAll(".modal-close").forEach(function (button) {
-        button.addEventListener("click", function () {
-            button.closest(".modal").classList.remove("show");
-        });
+        button.addEventListener("click", function () { button.closest(".modal").classList.remove("show"); });
     });
 
-    /* ---------- Quantity steppers inside Add Order modal ---------- */
-    document.querySelectorAll("#menuPickList .item-pick").forEach(function (row) {
-        const valueEl = row.querySelector(".qty-value");
-        row.querySelector(".qty-plus").addEventListener("click", function () {
-            valueEl.textContent = parseInt(valueEl.textContent, 10) + 1;
-        });
-        row.querySelector(".qty-minus").addEventListener("click", function () {
-            const current = parseInt(valueEl.textContent, 10);
-            if (current > 0) valueEl.textContent = current - 1;
-        });
-    });
-
-    /* ---------- Add Order submit ---------- */
-    let orderCounter = 1025;
-    const addOrderForm = document.getElementById("addOrderForm");
-    if (addOrderForm) {
-        addOrderForm.addEventListener("submit", function (e) {
-            e.preventDefault();
-
-            const table = document.getElementById("orderTable").value;
-            const customer = document.getElementById("orderCustomer").value.trim() || "Walk-in";
-
-            const picked = [];
-            document.querySelectorAll("#menuPickList .item-pick").forEach(function (row) {
-                const qty = parseInt(row.querySelector(".qty-value").textContent, 10);
-                if (qty > 0) picked.push(row.dataset.item + " \u00d7 " + qty);
+    const menuPickList = document.getElementById("menuPickList");
+    if (menuPickList) {
+        window.rmsRequest("menu").then(function (result) {
+            menuPickList.replaceChildren();
+            result.items.forEach(function (item) {
+                const row = document.createElement("div");
+                row.className = "item-pick";
+                row.dataset.item = item.name;
+                const label = document.createElement("span");
+                label.className = "item-label";
+                const name = document.createElement("b");
+                name.textContent = item.name;
+                const price = document.createElement("span");
+                price.textContent = Number(item.price).toFixed(2).replace(/\.00$/, "") + " Tk";
+                label.append(name, price);
+                const quantity = document.createElement("span");
+                quantity.className = "qty-control";
+                const minus = document.createElement("button");
+                minus.type = "button";
+                minus.className = "qty-btn qty-minus";
+                minus.textContent = "−";
+                const value = document.createElement("span");
+                value.className = "qty-value";
+                value.textContent = "0";
+                const plus = document.createElement("button");
+                plus.type = "button";
+                plus.className = "qty-btn qty-plus";
+                plus.textContent = "+";
+                quantity.append(minus, value, plus);
+                row.append(label, quantity);
+                menuPickList.appendChild(row);
             });
-
-            if (!table || picked.length === 0) {
-                alert("Select a table and at least one item.");
-                return;
-            }
-
-            const now = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-            const orderId = orderCounter++;
-
-            const emptyNote = document.querySelector("#ordersList .empty-note");
-            if (emptyNote) emptyNote.remove();
-
-            const card = document.createElement("div");
-            card.className = "order-card";
-            card.dataset.order = orderId;
-            card.innerHTML =
-                '<div class="order-top">' +
-                '<span><span class="order-table-tag">' + table + '</span><b>Order #' + orderId + '</b><br>' +
-                '<span class="small">' + customer + ' &middot; placed ' + now + '</span></span>' +
-                '<span class="status status-blue">Placed</span>' +
-                '</div>' +
-                '<div class="food-desc">' + picked.join(" &middot; ") + '</div>' +
-                '<div class="progress">' +
-                '<div class="step active">Placed</div>' +
-                '<div class="step">In Kitchen</div>' +
-                '<div class="step">Ready</div>' +
-                '<div class="step">Served</div>' +
-                '<div class="step">Delivered</div>' +
-                '</div>' +
-                '<div class="order-actions"><button class="btn2 mark-delivered">Mark Delivered</button></div>';
-
-            document.getElementById("ordersList").appendChild(card);
-
-            addOrderForm.reset();
-            document.querySelectorAll("#menuPickList .qty-value").forEach(function (v) { v.textContent = "0"; });
-            document.getElementById("addOrderModal").classList.remove("show");
+        }).catch(showError);
+        menuPickList.addEventListener("click", function (event) {
+            const button = event.target.closest(".qty-plus, .qty-minus");
+            if (!button) return;
+            const value = button.closest(".item-pick").querySelector(".qty-value");
+            const quantity = Number(value.textContent);
+            value.textContent = String(button.classList.contains("qty-plus") ? quantity + 1 : Math.max(0, quantity - 1));
         });
     }
 
-    /* ---------- Mark Delivered (event delegation for dynamic orders) ---------- */
-    document.getElementById("ordersList").addEventListener("click", function (e) {
-        if (!e.target.classList.contains("mark-delivered")) return;
-        if (e.target.classList.contains("done")) return;
-
-        const orderCard = e.target.closest(".order-card");
-        orderCard.querySelectorAll(".step").forEach(function (step) {
-            step.classList.remove("active");
-            step.classList.add("done");
+    const addOrderForm = document.getElementById("addOrderForm");
+    if (addOrderForm) {
+        addOrderForm.addEventListener("submit", async function (event) {
+            event.preventDefault();
+            const items = Array.from(document.querySelectorAll("#menuPickList .item-pick")).map(function (row) {
+                return { name: row.dataset.item, quantity: Number(row.querySelector(".qty-value").textContent) };
+            }).filter(function (item) { return item.quantity > 0; });
+            const tableSelect = document.getElementById("orderTable");
+            if (!tableSelect.value || !items.length) {
+                window.alert("Take a table and select at least one item.");
+                return;
+            }
+            try {
+                await window.rmsRequest("waiter_orders", {
+                    method: "POST",
+                    body: {
+                        table_id: Number(tableSelect.value),
+                        customer_name: document.getElementById("orderCustomer").value.trim(),
+                        notes: document.getElementById("orderNotes").value,
+                        items: items
+                    }
+                });
+                addOrderForm.reset();
+                document.querySelectorAll("#menuPickList .qty-value").forEach(function (value) { value.textContent = "0"; });
+                document.getElementById("addOrderModal").classList.remove("show");
+                await loadOrders();
+            } catch (error) {
+                showError(error);
+            }
         });
-        const statusBadge = orderCard.querySelector(".status");
-        statusBadge.textContent = "Delivered";
-        statusBadge.className = "status status-open";
+    }
 
-        e.target.textContent = "Delivered";
-        e.target.classList.add("done");
+    if (orderList) {
+        loadOrders().catch(showError);
+        orderList.addEventListener("click", async function (event) {
+            const button = event.target.closest(".mark-delivered");
+            if (!button) return;
+            try {
+                await window.rmsRequest("waiter_deliver", { method: "POST", body: { order_id: Number(button.dataset.orderId) } });
+                await loadOrders();
+            } catch (error) {
+                showError(error);
+            }
+        });
+    }
+
+    document.querySelectorAll('a[href="index.html"]').forEach(function (link) {
+        if (!link.textContent.trim().toLowerCase().includes("logout")) return;
+        link.addEventListener("click", function (event) {
+            event.preventDefault();
+            window.rmsRequest("logout", { method: "POST" }).finally(function () { window.location.href = "index.html"; });
+        });
     });
-
 });

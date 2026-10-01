@@ -23,19 +23,22 @@
                 <div class="auth-head"><b>Waiter Login</b>
                     <div style="font-size:small;margin-top:5px">Sign in to start your shift.</div>
                 </div>
-                <div class="auth-body">
-                    <div class="form-group"><label>Staff Email</label><input class="full" type="email"
-                            placeholder="waiter@rms.com"></div><br>
-                    <div class="form-group"><label>Password</label><input class="full" type="password"
-                            placeholder="Password"></div><br>
-                    <a class="btn full" href="waiter-dashboard.html" style="text-align:center;display:block">Login</a>
+                <form class="auth-body" id="waiterLoginForm" data-role="waiter">
+                    <div class="form-group"><label for="waiterEmail">Staff Email</label><input class="full" id="waiterEmail" name="email" type="email"
+                        placeholder="waiter@rms.com" autocomplete="username" required></div><br>
+                    <div class="form-group"><label for="waiterPassword">Password</label><input class="full" id="waiterPassword" name="password" type="password"
+                        placeholder="Password" autocomplete="current-password" required></div><br>
+                    <button class="btn full" type="submit">Login</button>
+                    <p class="form-message" id="authMessage" role="status"></p>
                     <div class="auth-switch">Not staff? <a href="customer-login.html">Customer login</a></div>
-                </div>
+                </form>
             </div>
         </div>
 
     </div>
     <div class="body3">&copy; 2026 UIU Restaurant Hub</div>
+    <script src="api-client.js"></script>
+    <script src="customer.js"></script>
 </body>
 
 </html>

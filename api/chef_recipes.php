@@ -4,17 +4,18 @@ require __DIR__ . '/db.php';
 
 try {
     $pdo = db();
-    require_chef($pdo, CURRENT_CHEF_ID);
+    $chef = require_chef($pdo);
+    $chefId = (int) $chef['user_id'];
 
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-        list_recipes($pdo);
+        list_recipes($pdo, $chefId);
     } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $body   = read_json_body();
         $action = $body['action'] ?? '';
         if ($action === 'sync_all') {
-            sync_recipes($pdo, $body['recipes'] ?? []);
+            sync_recipes($pdo, $chefId, $body['recipes'] ?? []);
         } elseif ($action === 'delete') {
-            delete_recipe($pdo, (int) ($body['id'] ?? 0));
+            delete_recipe($pdo, $chefId, (int) ($body['id'] ?? 0));
         } else {
             fail('Unknown action.');
         }
@@ -45,17 +46,17 @@ function db_category(string $ui): string
     return $map[strtolower(trim($ui))] ?? 'Main Course';
 }
 
-function list_recipes(PDO $pdo)
+function list_recipes(PDO $pdo, int $chefId)
 {
     $st = $pdo->prepare(
         "SELECT r.recipe_id, r.item_id, r.chef_id, r.instructions, r.preparation_time,
-                m.item_name, m.category, m.image
+                m.item_name, m.category, m.image, m.approved
          FROM recipes r
          JOIN menu_items m ON m.item_id = r.item_id
          WHERE r.chef_id = ?
          ORDER BY m.category, m.item_name"
     );
-    $st->execute([CURRENT_CHEF_ID]);
+    $st->execute([$chefId]);
 
     $out = [];
     foreach ($st->fetchAll() as $r) {
@@ -67,6 +68,7 @@ function list_recipes(PDO $pdo)
             'chef_id'    => (int) $r['chef_id'],
             'name'       => $r['item_name'],
             'category'   => $r['category'],          // the JS normalises this
+            'approved'   => (int) $r['approved'],
             'difficulty' => difficulty_from_minutes($minutes),
             'minutes'    => $minutes,
             'notes'      => (string) $r['instructions'],
@@ -77,7 +79,7 @@ function list_recipes(PDO $pdo)
     json_out(['success' => true, 'recipes' => $out]);
 }
 
-function sync_recipes(PDO $pdo, $list)
+function sync_recipes(PDO $pdo, int $chefId, $list)
 {
     if (!is_array($list)) {
         fail('recipes must be a list.');
@@ -117,10 +119,10 @@ function sync_recipes(PDO $pdo, $list)
         $description  = $notes === '' ? null : mb_substr($notes, 0, 250);
 
         // 1) existing recipe of THIS chef -> update
-        $findOwn->execute([$id, CURRENT_CHEF_ID]);
+        $findOwn->execute([$id, $chefId]);
         $own = $id > 0 ? $findOwn->fetch() : false;
         if ($own) {
-            $updRecipe->execute([$instructions, $minutes, $own['recipe_id'], CURRENT_CHEF_ID]);
+            $updRecipe->execute([$instructions, $minutes, $own['recipe_id'], $chefId]);
             if ((int) $own['approved'] === 0) {
                 // chef's own proposal: name/category may still be edited
                 $updItem->execute([$name, db_category($uiCat), $description, $own['item_id']]);
@@ -133,7 +135,7 @@ function sync_recipes(PDO $pdo, $list)
         $existing = $findByName->fetch();
         if ($existing) {
             if ((int) $existing['recipe_count'] === 0) {
-                $insRecipe->execute([$existing['item_id'], CURRENT_CHEF_ID, $instructions, $minutes]);
+                $insRecipe->execute([$existing['item_id'], $chefId, $instructions, $minutes]);
             }
             // already has a recipe (maybe another chef's) -> leave it alone
             continue;
@@ -142,14 +144,14 @@ function sync_recipes(PDO $pdo, $list)
         // 3) brand new dish -> unapproved proposal for the admin
         $insItem->execute([$name, $description, db_category($uiCat)]);
         $newItemId = (int) $pdo->lastInsertId();
-        $insRecipe->execute([$newItemId, CURRENT_CHEF_ID, $instructions, $minutes]);
+        $insRecipe->execute([$newItemId, $chefId, $instructions, $minutes]);
     }
 
     $pdo->commit();
     json_out(['success' => true]);
 }
 
-function delete_recipe(PDO $pdo, int $id)
+function delete_recipe(PDO $pdo, int $chefId, int $id)
 {
     if ($id <= 0) {
         fail('Missing recipe id.');
@@ -161,14 +163,14 @@ function delete_recipe(PDO $pdo, int $id)
          FROM recipes r JOIN menu_items m ON m.item_id = r.item_id
          WHERE r.recipe_id = ? AND r.chef_id = ? FOR UPDATE'
     );
-    $st->execute([$id, CURRENT_CHEF_ID]);
+    $st->execute([$id, $chefId]);
     $row = $st->fetch();
     if (!$row) {
         $pdo->rollBack();
         fail('Recipe not found.', 404);
     }
 
-    $pdo->prepare('DELETE FROM recipes WHERE recipe_id = ? AND chef_id = ?')->execute([$id, CURRENT_CHEF_ID]);
+    $pdo->prepare('DELETE FROM recipes WHERE recipe_id = ? AND chef_id = ?')->execute([$id, $chefId]);
 
     // Remove the menu item only if it was this chef's unapproved proposal and is unused.
     if ((int) $row['approved'] === 0 && (int) $row['available'] === 0) {

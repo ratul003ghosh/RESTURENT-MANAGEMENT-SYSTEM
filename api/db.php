@@ -3,14 +3,10 @@
 
 
 const DB_HOST = '127.0.0.1';
-const DB_NAME = 'resturant_management';   // spelled exactly like in your .sql file
+const DB_NAME = 'resturant_management';   
 const DB_USER = 'root';
 const DB_PASS = '';                        // XAMPP default is empty
 const APP_TIMEZONE = 'Asia/Dhaka';
-
-
-const CURRENT_CHEF_ID = 3;
-
 
 const CHEF_CAN_MARK_SERVED = true;
 
@@ -19,6 +15,11 @@ const CHEF_CAN_CREATE_ORDERS = false;
 
 
 date_default_timezone_set(APP_TIMEZONE);
+session_set_cookie_params([
+    'httponly' => true,
+    'samesite' => 'Lax',
+]);
+session_start();
 header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: no-store');
 
@@ -68,16 +69,18 @@ function read_json_body(): array
 function fail(string $message, int $code = 400)
 {
     json_out(['success' => false, 'message' => $message], $code);
+}
 
-function require_chef(PDO $pdo, int $chefId): array
+function require_chef(PDO $pdo): array
 {
     $st = $pdo->prepare(
         "SELECT user_id, name, email, role FROM users
          WHERE user_id = ? AND role = 'chef' AND approved = 1"
     );
-    $st->execute([$chefId]);
+    $st->execute([(int) ($_SESSION['chef_id'] ?? 0)]);
     $chef = $st->fetch();
     if (!$chef) {
+        unset($_SESSION['chef_id']);
         fail('Chef account not found or not approved.', 403);
     }
     return $chef;
@@ -85,7 +88,7 @@ function require_chef(PDO $pdo, int $chefId): array
 
 function handle_exception(Throwable $e)
 {
-    // Keep details out of the browser; check your PHP/Apache error log instead.
+    
     error_log('[chef api] ' . $e->getMessage());
     json_out(['success' => false, 'message' => 'Server error.'], 500);
 }

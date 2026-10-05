@@ -1,10 +1,4 @@
 
-var RECIPES_STORAGE_KEY = "rf_recipes";
-
-
-var SHIFT_STORAGE_KEY = "rf_on_shift";
-
-
 var CATEGORY_ORDER = ["Appetizers", "Pizza", "Drinks", "Desserts", "Burgers", "Mains"];
 
 var RECIPE_IMAGES = {
@@ -83,43 +77,42 @@ function closeModal() {
 
 
 
-function loadRecipesFromStorage() {
-  var text = localStorage.getItem(RECIPES_STORAGE_KEY);
-  if (!text) {
-    return null;
+var allRecipes = [];
+
+function recipeCategoryFromApi(category) {
+  var categories = {
+    "Appetizer": "Appetizers",
+    "Dessert": "Desserts",
+    "Burger": "Burgers",
+    "Main Course": "Mains",
+    "Pasta": "Mains"
+  };
+  return categories[category] || category;
+}
+
+function recipeCategoryToApi(category) {
+  var categories = {
+    "Appetizers": "Appetizer",
+    "Desserts": "Dessert",
+    "Burgers": "Burger",
+    "Mains": "Main Course"
+  };
+  return categories[category] || category;
+}
+
+async function refreshRecipesFromApi() {
+  try {
+    var result = await chefApiRequest("chef_recipes.php");
+    allRecipes = result.recipes.map(function (recipe) {
+      recipe.category = recipeCategoryFromApi(recipe.category || "Main Course");
+      return recipe;
+    });
+    renderRecipes();
+    return true;
+  } catch (error) {
+    chefApiShowError(error);
+    return false;
   }
-  return JSON.parse(text);
-}
-
-function saveRecipesToStorage(recipeList) {
-  localStorage.setItem(RECIPES_STORAGE_KEY, JSON.stringify(recipeList));
-}
-
-
-function buildStartingRecipes() {
-  return [
-    { id: 1, name: "Burrata & Heirloom Tomato", category: "Appetizers", difficulty: "Easy", minutes: 6, notes: "" },
-    { id: 2, name: "Classic Margherita", category: "Pizza", difficulty: "Medium", minutes: 22, notes: "" },
-    { id: 3, name: "Cold Brew Espresso Tonic", category: "Drinks", difficulty: "Easy", minutes: 4, notes: "" },
-    { id: 4, name: "Crème Brûlée", category: "Desserts", difficulty: "Medium", minutes: 10, notes: "" },
-    { id: 5, name: "Bacon Cheeseburger", category: "Burgers", difficulty: "Medium", minutes: 15, notes: "" },
-    { id: 6, name: "Beef Wellington", category: "Mains", difficulty: "Hard", minutes: 35, notes: "" },
-    { id: 7, name: "Herb Roasted Chicken", category: "Mains", difficulty: "Medium", minutes: 28, notes: "" },
-    { id: 8, name: "Fresh Mint Lemonade", category: "Drinks", difficulty: "Easy", minutes: 5, notes: "" },
-    { id: 9, name: "Mushroom Risotto", category: "Mains", difficulty: "Hard", minutes: 20, notes: "" },
-    { id: 10, name: "Smash Burger Deluxe", category: "Burgers", difficulty: "Medium", minutes: 12, notes: "" },
-    { id: 11, name: "Spicy Tuna Tataki", category: "Appetizers", difficulty: "Hard", minutes: 11, notes: "" },
-    { id: 12, name: "Truffle Mushroom Pizza", category: "Pizza", difficulty: "Medium", minutes: 25, notes: "" },
-    { id: 13, name: "Caesar Salad", category: "Appetizers", difficulty: "Easy", minutes: 7, notes: "" },
-    { id: 14, name: "Chicken Piccata", category: "Mains", difficulty: "Medium", minutes: 16, notes: "" },
-    { id: 15, name: "Chocolate Mousse", category: "Desserts", difficulty: "Easy", minutes: 8, notes: "" }
-  ];
-}
-
-var allRecipes = loadRecipesFromStorage();
-if (!allRecipes) {
-  allRecipes = buildStartingRecipes();
-  saveRecipesToStorage(allRecipes);
 }
 
 
@@ -275,7 +268,7 @@ function findRecipeById(recipeId) {
   return null;
 }
 
-function deleteRecipe(recipeId) {
+async function deleteRecipe(recipeId) {
   var recipe = findRecipeById(recipeId);
   if (!recipe) {
     return;
@@ -286,16 +279,16 @@ function deleteRecipe(recipeId) {
     return;
   }
 
-  var newList = [];
-  for (var i = 0; i < allRecipes.length; i++) {
-    if (allRecipes[i].id !== recipeId) {
-      newList.push(allRecipes[i]);
-    }
+  try {
+    await chefApiPost("chef_recipes.php", {
+      action: "delete",
+      id: recipeId
+    });
+    if (!(await refreshRecipesFromApi())) return;
+    showToast('"' + recipe.name + '" was deleted.');
+  } catch (error) {
+    chefApiShowError(error);
   }
-  allRecipes = newList;
-  saveRecipesToStorage(allRecipes);
-  showToast('"' + recipe.name + '" was deleted.');
-  renderRecipes();
 }
 
 
@@ -319,7 +312,7 @@ function openRecipeForm(recipeId) {
   var minutes = recipe ? recipe.minutes : "";
   var notes = recipe ? recipe.notes : "";
   var category = recipe ? recipe.category : CATEGORY_ORDER[0];
-  var difficulty = recipe ? recipe.difficulty : "Easy";
+  var approvedRecipe = recipe && Number(recipe.approved) === 1;
 
   var html = "";
   html += '<div class="modal-head"><h2>' + title + "</h2>";
@@ -328,23 +321,22 @@ function openRecipeForm(recipeId) {
 
   html += '  <div class="field full">';
   html += "    <label>Recipe name</label>";
-  html += '    <input id="rfName" value="' + escapeHtml(name) + '" placeholder="e.g. Classic Margherita">';
+  html += '    <input id="rfName" value="' + escapeHtml(name) + '" placeholder="e.g. Classic Margherita"' + (approvedRecipe ? " disabled" : "") + ">";
   html += "  </div>";
 
   html += '  <div class="field">';
   html += "    <label>Category</label>";
-  html += '    <select id="rfCategory">' + buildOptionsHtml(CATEGORY_ORDER, category) + "</select>";
-  html += "  </div>";
-
-  html += '  <div class="field">';
-  html += "    <label>Difficulty</label>";
-  html += '    <select id="rfDifficulty">' + buildOptionsHtml(["Easy", "Medium", "Hard"], difficulty) + "</select>";
+  html += '    <select id="rfCategory"' + (approvedRecipe ? " disabled" : "") + ">" + buildOptionsHtml(CATEGORY_ORDER, category) + "</select>";
   html += "  </div>";
 
   html += '  <div class="field">';
   html += "    <label>Time (minutes)</label>";
   html += '    <input id="rfMinutes" type="number" min="1" value="' + minutes + '">';
   html += "  </div>";
+
+  if (approvedRecipe) {
+    html += '  <div class="field full"><span class="tiny">Approved dish names and categories are managed by an administrator.</span></div>';
+  }
 
   html += '  <div class="field full">';
   html += "    <label>Notes (optional)</label>";
@@ -363,10 +355,9 @@ function openRecipeForm(recipeId) {
   document.getElementById("rfSaveBtn").addEventListener("click", saveRecipeForm);
 }
 
-function saveRecipeForm() {
+async function saveRecipeForm() {
   var name = document.getElementById("rfName").value.trim();
   var category = document.getElementById("rfCategory").value;
-  var difficulty = document.getElementById("rfDifficulty").value;
   var minutes = Number(document.getElementById("rfMinutes").value);
   var notes = document.getElementById("rfNotes").value.trim();
 
@@ -378,37 +369,46 @@ function saveRecipeForm() {
     minutes = 5; 
   }
 
-  if (recipeBeingEditedId) {
+  var recipesToSave = allRecipes.map(function (recipe) {
+    return {
+      id: recipe.id,
+      name: recipe.name,
+      category: recipeCategoryToApi(recipe.category),
+      minutes: recipe.minutes,
+      notes: recipe.notes
+    };
+  });
 
-    var recipe = findRecipeById(recipeBeingEditedId);
-    recipe.name = name;
-    recipe.category = category;
-    recipe.difficulty = difficulty;
-    recipe.minutes = minutes;
-    recipe.notes = notes;
-    showToast('"' + name + '" was updated.');
-  } else {
-   
-    var highestId = 0;
-    for (var i = 0; i < allRecipes.length; i++) {
-      if (allRecipes[i].id > highestId) {
-        highestId = allRecipes[i].id;
+  var recipeToSave = {
+    id: recipeBeingEditedId || 0,
+    name: name,
+    category: recipeCategoryToApi(category),
+    minutes: minutes,
+    notes: notes
+  };
+
+  if (recipeBeingEditedId) {
+    for (var i = 0; i < recipesToSave.length; i++) {
+      if (recipesToSave[i].id === recipeBeingEditedId) {
+        recipesToSave[i] = recipeToSave;
+        break;
       }
     }
-    allRecipes.push({
-      id: highestId + 1,
-      name: name,
-      category: category,
-      difficulty: difficulty,
-      minutes: minutes,
-      notes: notes
-    });
-    showToast('"' + name + '" was added.');
+  } else {
+    recipesToSave.push(recipeToSave);
   }
 
-  saveRecipesToStorage(allRecipes);
-  closeModal();
-  renderRecipes();
+  try {
+    await chefApiPost("chef_recipes.php", {
+      action: "sync_all",
+      recipes: recipesToSave
+    });
+    if (!(await refreshRecipesFromApi())) return;
+    closeModal();
+    showToast('"' + name + '" was saved.');
+  } catch (error) {
+    chefApiShowError(error);
+  }
 }
 
 
@@ -465,29 +465,5 @@ if (switchChefButton) {
   });
 }
 
-var shiftChipButton = document.getElementById("shiftChip");
-if (shiftChipButton) {
-  function paintShiftButton(isOnShift) {
-    if (isOnShift) {
-      shiftChipButton.textContent = "● On Shift";
-      shiftChipButton.classList.add("on");
-    } else {
-      shiftChipButton.textContent = "● Off Shift";
-      shiftChipButton.classList.remove("on");
-    }
-  }
-  var savedShift = localStorage.getItem(SHIFT_STORAGE_KEY);
-  paintShiftButton(savedShift === "true");
-
-  shiftChipButton.addEventListener("click", function () {
-    var isOnNow = shiftChipButton.classList.contains("on");
-    var turningOn = !isOnNow;
-    paintShiftButton(turningOn);
-    localStorage.setItem(SHIFT_STORAGE_KEY, turningOn ? "true" : "false");
-  });
-}
-
-
-
-
 renderRecipes();
+refreshRecipesFromApi();

@@ -47,9 +47,11 @@
       </label>
       <select id="dashCategory" class="dash-select">
         <option value="all">All Categories</option>
-        <option value="Main">Main</option>
+        <option value="Main Course">Main Course</option>
         <option value="Appetizer">Appetizer</option>
-        <option value="Salad">Salad</option>
+        <option value="Pizza">Pizza</option>
+        <option value="Burger">Burger</option>
+        <option value="Pasta">Pasta</option>
         <option value="Drinks">Drinks</option>
         <option value="Dessert">Dessert</option>
       </select>
@@ -79,10 +81,9 @@
         <div class="dash-panel">
           <div class="dash-panel-title"> Quick Actions</div>
           <div class="quick-grid">
-            <button class="quick-btn" id="dashNewOrder"><span>New Order</span></button>
-            <a class="quick-btn" href="orders.html"><span>View All</span></a>
-            <a class="quick-btn" href="recipes.html"><span>Add Recipe</span></a>
-            <a class="quick-btn" href="time.html"><span>Time Tracking</span></a>
+            <a class="quick-btn" href="saker_orders.html"><span>View All</span></a>
+            <a class="quick-btn" href="saker_recipes.html"><span>Add Recipe</span></a>
+            <a class="quick-btn" href="saker_time.html"><span>Time Tracking</span></a>
           </div>
         </div>
 
@@ -97,7 +98,7 @@
   <div class="dash-completed">
     <div class="dash-completed-head">
       <span><b>Completed</b> <span class="dash-count" id="dashCompletedCount">0</span></span>
-      <a class="btn" href="orders.html"> View All Completed Orders</a>
+      <a class="btn" href="saker_orders.html"> View All Completed Orders</a>
     </div>
     <div class="dash-completed-grid" id="dashCompletedCol"></div>
   </div>
@@ -110,11 +111,8 @@
 <div class="toast" id="toast"></div>
 
 
-<script src="saker_chat.js"></script>
+<script src="chef_api.js"></script>
 <script src="saker_dashboard.js"></script>
-<script src="saker_orders.js"></script>
-<script src="saker_recipes.js"></script>
-<script src="saker_time.js"></script>
   
 
 

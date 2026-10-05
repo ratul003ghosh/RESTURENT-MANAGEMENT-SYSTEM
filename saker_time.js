@@ -1,11 +1,6 @@
 
 
 
-var ACTIVE_SHIFT_KEY = "rf_active_shift"; 
-var SHIFT_HISTORY_KEY = "rf_shift_history"; 
-var SHIFT_STORAGE_KEY = "rf_on_shift"; 
-
-
 var WEEKLY_GOAL_HOURS = 40;
 
 
@@ -78,32 +73,29 @@ function formatFullDate(timestampMs) {
 }
 
 
-function getActiveShiftStart() {
-  var text = localStorage.getItem(ACTIVE_SHIFT_KEY);
-  if (!text) {
-    return null;
-  }
-  return Number(text);
-}
+var activeShiftStart = null;
+var shiftHistory = [];
 
-function setActiveShiftStart(timestampMsOrNull) {
-  if (timestampMsOrNull === null) {
-    localStorage.removeItem(ACTIVE_SHIFT_KEY);
-  } else {
-    localStorage.setItem(ACTIVE_SHIFT_KEY, "" + timestampMsOrNull);
-  }
+function getActiveShiftStart() {
+  return activeShiftStart;
 }
 
 function loadShiftHistory() {
-  var text = localStorage.getItem(SHIFT_HISTORY_KEY);
-  if (!text) {
-    return [];
-  }
-  return JSON.parse(text);
+  return shiftHistory;
 }
 
-function saveShiftHistory(historyList) {
-  localStorage.setItem(SHIFT_HISTORY_KEY, JSON.stringify(historyList));
+async function refreshAttendanceFromApi() {
+  try {
+    var result = await chefApiRequest("chef_attendance.php");
+    activeShiftStart = result.active_start;
+    shiftHistory = result.shifts;
+    chefApiPaintShift(activeShiftStart);
+    renderEverything();
+    return true;
+  } catch (error) {
+    chefApiShowError(error);
+    return false;
+  }
 }
 
 
@@ -206,102 +198,22 @@ function renderEverything() {
 
 var clockButton = document.getElementById("clockBtn");
 if (clockButton) {
-  clockButton.addEventListener("click", function () {
+  clockButton.addEventListener("click", async function () {
     var startTime = getActiveShiftStart();
-
-    if (startTime) {
-    
-      var finishedShift = {
-        clockIn: startTime,
-        clockOut: Date.now(),
-        durationMs: Date.now() - startTime
-      };
-      var history = loadShiftHistory();
-      history.push(finishedShift);
-      saveShiftHistory(history);
-
-      setActiveShiftStart(null);
-      localStorage.setItem(SHIFT_STORAGE_KEY, "false");
-      showToast("Clocked out. Shift saved: " + formatHoursMinutes(finishedShift.durationMs) + ".");
-    } else {
-     
-      setActiveShiftStart(Date.now());
-      localStorage.setItem(SHIFT_STORAGE_KEY, "true");
-      showToast("Clocked in. Have a great shift!");
+    try {
+      await chefApiPost("chef_attendance.php", {
+        action: startTime ? "clock_out" : "clock_in"
+      });
+      if (!(await refreshAttendanceFromApi())) return;
+      showToast(startTime ? "Clocked out. Shift saved." : "Clocked in. Have a great shift!");
+    } catch (error) {
+      chefApiShowError(error);
     }
-
-    renderEverything();
   });
 }
-
-
-
-var adjustButtons = document.querySelectorAll("[data-adjust]");
-for (var a = 0; a < adjustButtons.length; a++) {
-  adjustButtons[a].addEventListener("click", function (event) {
-    var startTime = getActiveShiftStart();
-    if (!startTime) {
-      showToast("Clock in first before adjusting the time.");
-      return;
-    }
-    var minutesToAdjust = Number(event.currentTarget.getAttribute("data-adjust"));
-
-
-    var newStartTime = startTime - minutesToAdjust * 60000;
-
-    
-    if (newStartTime > Date.now()) {
-      newStartTime = Date.now();
-    }
-
-    setActiveShiftStart(newStartTime);
-    renderEverything();
-  });
-}
-
-var resetShiftButton = document.getElementById("resetShift");
-if (resetShiftButton) {
-  resetShiftButton.addEventListener("click", function () {
-    var startTime = getActiveShiftStart();
-    if (!startTime) {
-      showToast("There is no running shift to reset.");
-      return;
-    }
-    var sure = window.confirm("Reset the current shift? This will not be saved.");
-    if (!sure) {
-      return;
-    }
-    setActiveShiftStart(null);
-    localStorage.setItem(SHIFT_STORAGE_KEY, "false");
-    showToast("Shift reset.");
-    renderEverything();
-  });
-}
-
-
-
 
 function paintHeaderShiftChip() {
-  var shiftChipButton = document.getElementById("shiftChip");
-  if (!shiftChipButton) {
-    return;
-  }
-  var isOnShift = getActiveShiftStart() !== null;
-  if (isOnShift) {
-    shiftChipButton.textContent = "● On Shift";
-    shiftChipButton.classList.add("on");
-  } else {
-    shiftChipButton.textContent = "● Off Shift";
-    shiftChipButton.classList.remove("on");
-  }
-}
-
-var shiftChipButton = document.getElementById("shiftChip");
-if (shiftChipButton) {
-  shiftChipButton.addEventListener("click", function () {
-   
-    document.getElementById("clockBtn").click();
-  });
+  chefApiPaintShift(getActiveShiftStart());
 }
 
 var avatarButton = document.getElementById("avatarBtn");
@@ -355,6 +267,7 @@ if (modalBackdropEl) {
 
 
 renderEverything();
+refreshAttendanceFromApi();
 
 
 window.setInterval(renderEverything, 1000);

@@ -1,11 +1,6 @@
 
 
 
-var ORDERS_STORAGE_KEY = "rf_orders";
-
-var SHIFT_STORAGE_KEY = "rf_on_shift";
-
-
 var LOCK_MINUTES = 45;
 
 
@@ -58,121 +53,16 @@ function closeModal() {
 
 
 
-function loadOrdersFromStorage() {
-  var text = localStorage.getItem(ORDERS_STORAGE_KEY);
-  if (!text) {
-    return null;
+var allOrders = [];
+
+async function refreshOrdersFromApi() {
+  try {
+    var result = await chefApiRequest("chef_orders.php");
+    allOrders = result.orders;
+    renderQueue();
+  } catch (error) {
+    chefApiShowError(error);
   }
-  return JSON.parse(text);
-}
-
-
-function saveOrdersToStorage(orderList) {
-  localStorage.setItem(ORDERS_STORAGE_KEY, JSON.stringify(orderList));
-}
-
-function buildStartingOrders() {
-  var now = Date.now(); 
-
-  function minutesFromNow(minutes) {
-    return now + minutes * 60000;
-  }
-
-  return [
-    {
-      id: 4450,
-      table: "T7",
-      area: "Patio",
-      rush: false,
-      status: "queued", 
-      startTime: minutesFromNow(-2), 
-      items: [
-        { qty: 1, name: "Grilled Atlantic Salmon", note: "No asparagus" },
-        { qty: 1, name: "Sautéed Broccolini" },
-        { qty: 2, name: "Sparkling Water" }
-      ]
-    },
-    {
-      id: 4451,
-      table: "T2",
-      area: "Main",
-      rush: true,
-      status: "queued",
-      startTime: minutesFromNow(-5),
-      items: [
-        { qty: 2, name: "Dry-Aged Ribeye (10oz)", note: "1× medium rare, 1× medium" },
-        { qty: 2, name: "Truffle Parmesan Fries" }
-      ]
-    },
-    {
-      id: 4449,
-      table: "T1",
-      area: "Main",
-      rush: false,
-      status: "queued",
-      startTime: minutesFromNow(6),
-      items: [
-        { qty: 1, name: "Classic Margherita", note: "Extra basil" },
-        { qty: 1, name: "Caesar Salad" },
-        { qty: 1, name: "Sparkling Water" }
-      ]
-    },
-    {
-      id: 4448,
-      table: "T11",
-      area: "Bar",
-      rush: false,
-      status: "queued",
-      startTime: minutesFromNow(12),
-      items: [
-        { qty: 1, name: "Mushroom Risotto", note: "No parmesan" },
-        { qty: 1, name: "Sparkling Water" }
-      ]
-    },
-    {
-      id: 4447,
-      table: "T4",
-      area: "Main",
-      rush: false,
-      status: "queued",
-      startTime: minutesFromNow(18),
-      items: [
-        { qty: 1, name: "Chicken Piccata" },
-        { qty: 1, name: "Caesar Salad" }
-      ]
-    },
-    {
-      id: 4446,
-      table: "T8",
-      area: "Main",
-      rush: false,
-      status: "queued",
-      startTime: minutesFromNow(24),
-      items: [
-        { qty: 2, name: "Dry-Aged Ribeye Steak", note: "Medium" },
-        { qty: 2, name: "Sparkling Water" }
-      ]
-    },
-    {
-      id: 4445,
-      table: "T14",
-      area: "Bar",
-      rush: false,
-      status: "queued",
-      startTime: minutesFromNow(30),
-      items: [
-        { qty: 1, name: "Mushroom Risotto" },
-        { qty: 1, name: "Chicken Piccata" }
-      ]
-    }
-  ];
-}
-
-
-var allOrders = loadOrdersFromStorage();
-if (!allOrders) {
-  allOrders = buildStartingOrders();
-  saveOrdersToStorage(allOrders);
 }
 
 
@@ -386,15 +276,23 @@ function findOrderById(orderId) {
   return null;
 }
 
-function startPrepForOrder(orderId) {
+async function startPrepForOrder(orderId) {
   var order = findOrderById(orderId);
   if (!order) {
     return;
   }
-  order.status = "prep";
-  saveOrdersToStorage(allOrders);
-  showToast("Order #" + orderId + " sent to the kitchen for prep.");
-  renderQueue();
+  try {
+    await chefApiPost("chef_orders.php", {
+      action: "update_status",
+      id: orderId,
+      status: "prep"
+    });
+    order.status = "prep";
+    showToast("Order #" + orderId + " sent to the kitchen for prep.");
+    renderQueue();
+  } catch (error) {
+    chefApiShowError(error);
+  }
 }
 
 
@@ -510,34 +408,6 @@ if (switchChefButton) {
 }
 
 
-var shiftChipButton = document.getElementById("shiftChip");
-if (shiftChipButton) {
-  function paintShiftButton(isOnShift) {
-    if (isOnShift) {
-      shiftChipButton.textContent = " On Shift";
-      shiftChipButton.classList.add("on");
-    } else {
-      shiftChipButton.textContent = " Off Shift";
-      shiftChipButton.classList.remove("on");
-    }
-  }
-
-
-  var savedShift = localStorage.getItem(SHIFT_STORAGE_KEY);
-  paintShiftButton(savedShift === "true");
-
-  shiftChipButton.addEventListener("click", function () {
-    var isOnNow = shiftChipButton.classList.contains("on");
-    var turningOn = !isOnNow;
-    paintShiftButton(turningOn);
-    localStorage.setItem(SHIFT_STORAGE_KEY, turningOn ? "true" : "false");
-  });
-}
-
-
-
-
 renderQueue();
-
-
-window.setInterval(renderQueue, REFRESH_EVERY_MS);
+refreshOrdersFromApi();
+window.setInterval(refreshOrdersFromApi, REFRESH_EVERY_MS);

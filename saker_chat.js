@@ -4,9 +4,6 @@
 var CHAT_STORAGE_KEY = "rf_chat_messages";
 
 
-var SHIFT_STORAGE_KEY = "rf_on_shift";
-
-
 var CHAT_PEOPLE = [
   { id: "elena", name: "Elena K.", role: "Grill Station", status: "Online", isMe: true },
   { id: "marco", name: "Marco R.", role: "Sauté Station", status: "Online" },
@@ -271,30 +268,6 @@ if (switchChefButton) {
     showToast("Switch chef is not available in this demo yet.");
   });
 }
-
-var shiftChipButton = document.getElementById("shiftChip");
-if (shiftChipButton) {
-  function paintShiftButton(isOnShift) {
-    if (isOnShift) {
-      shiftChipButton.textContent = "● On Shift";
-      shiftChipButton.classList.add("on");
-    } else {
-      shiftChipButton.textContent = "● Off Shift";
-      shiftChipButton.classList.remove("on");
-    }
-  }
-  var savedShift = localStorage.getItem(SHIFT_STORAGE_KEY);
-  paintShiftButton(savedShift === "true");
-
-  shiftChipButton.addEventListener("click", function () {
-    var isOnNow = shiftChipButton.classList.contains("on");
-    var turningOn = !isOnNow;
-    paintShiftButton(turningOn);
-    localStorage.setItem(SHIFT_STORAGE_KEY, turningOn ? "true" : "false");
-  });
-}
-
-
 
 renderPeopleList();
 renderConversation();

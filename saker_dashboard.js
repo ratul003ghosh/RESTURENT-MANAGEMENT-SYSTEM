@@ -1,9 +1,6 @@
 
 
 
-var ORDERS_STORAGE_KEY = "rf_orders";
-var SHIFT_STORAGE_KEY = "rf_on_shift";
-
 var ACTIVITY_STORAGE_KEY = "rf_activity";
 
 
@@ -12,6 +9,7 @@ var MAX_ACTIVITY_ROWS = 6;
 
 var dashSearchText = "";
 var dashCategoryFilter = "all";
+var allOrders = [];
 
 
 
@@ -50,91 +48,6 @@ function closeModal() {
   if (modalBackdrop) {
     modalBackdrop.classList.remove("open");
   }
-}
-
-
-
-
-function loadOrdersFromStorage() {
-  var text = localStorage.getItem(ORDERS_STORAGE_KEY);
-  if (!text) {
-    return null;
-  }
-  return JSON.parse(text);
-}
-
-function saveOrdersToStorage(orderList) {
-  localStorage.setItem(ORDERS_STORAGE_KEY, JSON.stringify(orderList));
-}
-
-
-function buildStartingOrders() {
-  var now = Date.now();
-
-  function minutesFromNow(minutes) {
-    return now + minutes * 60000;
-  }
-
-  return [
-    {
-      id: 4450, table: "T7", area: "Patio", rush: false, status: "queued",
-      startTime: minutesFromNow(-2),
-      items: [
-        { qty: 1, name: "Grilled Atlantic Salmon", note: "No asparagus" },
-        { qty: 1, name: "Sautéed Broccolini" },
-        { qty: 2, name: "Sparkling Water" }
-      ]
-    },
-    {
-      id: 4451, table: "T2", area: "Main", rush: true, status: "queued",
-      startTime: minutesFromNow(-5),
-      items: [
-        { qty: 2, name: "Dry-Aged Ribeye (10oz)", note: "1× medium rare, 1× medium" },
-        { qty: 2, name: "Truffle Parmesan Fries" }
-      ]
-    },
-    {
-      id: 4449, table: "T1", area: "Main", rush: false, status: "queued",
-      startTime: minutesFromNow(6),
-      items: [
-        { qty: 1, name: "Classic Margherita", note: "Extra basil" },
-        { qty: 1, name: "Caesar Salad" },
-        { qty: 1, name: "Sparkling Water" }
-      ]
-    },
-    {
-      id: 4448, table: "T11", area: "Bar", rush: false, status: "queued",
-      startTime: minutesFromNow(12),
-      items: [
-        { qty: 1, name: "Mushroom Risotto", note: "No parmesan" },
-        { qty: 1, name: "Sparkling Water" }
-      ]
-    },
-    {
-      id: 4447, table: "T4", area: "Main", rush: false, status: "queued",
-      startTime: minutesFromNow(18),
-      items: [
-        { qty: 1, name: "Chicken Piccata" },
-        { qty: 1, name: "Caesar Salad" }
-      ]
-    },
-    {
-      id: 4446, table: "T8", area: "Main", rush: false, status: "queued",
-      startTime: minutesFromNow(24),
-      items: [
-        { qty: 2, name: "Dry-Aged Ribeye Steak", note: "Medium" },
-        { qty: 2, name: "Sparkling Water" }
-      ]
-    },
-    {
-      id: 4445, table: "T14", area: "Bar", rush: false, status: "queued",
-      startTime: minutesFromNow(30),
-      items: [
-        { qty: 1, name: "Mushroom Risotto" },
-        { qty: 1, name: "Chicken Piccata" }
-      ]
-    }
-  ];
 }
 
 
@@ -207,7 +120,8 @@ function orderMatchesFilters(order) {
   if (dashCategoryFilter !== "all") {
     var hasCategory = false;
     for (var i = 0; i < order.items.length; i++) {
-      if (guessCategory(order.items[i].name) === dashCategoryFilter) {
+      var category = order.items[i].category || guessCategory(order.items[i].name);
+      if (category === dashCategoryFilter) {
         hasCategory = true;
       }
     }
@@ -292,13 +206,6 @@ function buildCompletedCardHtml(order) {
 
 
 function renderDashboard() {
-
-  var allOrders = loadOrdersFromStorage();
-  if (!allOrders) {
-    allOrders = buildStartingOrders();
-    saveOrdersToStorage(allOrders);
-  }
-
   var kitchenOrders = [];
   var readyOrders = [];
   var completedOrders = [];
@@ -379,7 +286,7 @@ function renderActivity() {
 
 
 
-function handleColumnClick(event) {
+async function handleColumnClick(event) {
   var button = event.target.closest("button");
   if (!button) {
     return;
@@ -388,11 +295,21 @@ function handleColumnClick(event) {
   var orderId = Number(button.getAttribute("data-id"));
 
   if (action === "mark-ready") {
-    changeOrderStatus(orderId, "ready");
+    try {
+      if (!(await changeOrderStatus(orderId, "ready"))) return;
+    } catch (error) {
+      chefApiShowError(error);
+      return;
+    }
     addActivity("Order #" + orderId + " ready for pickup", "green");
     showToast("Order #" + orderId + " marked ready.");
   } else if (action === "pickup") {
-    changeOrderStatus(orderId, "done");
+    try {
+      if (!(await changeOrderStatus(orderId, "done"))) return;
+    } catch (error) {
+      chefApiShowError(error);
+      return;
+    }
     addActivity("Order #" + orderId + " picked up", "orange");
     showToast("Order #" + orderId + " picked up.");
   }
@@ -403,17 +320,25 @@ document.getElementById("dashKitchenCol").addEventListener("click", handleColumn
 document.getElementById("dashReadyCol").addEventListener("click", handleColumnClick);
 
 
-function changeOrderStatus(orderId, newStatus) {
-  var allOrders = loadOrdersFromStorage();
-  if (!allOrders) {
-    return;
+async function changeOrderStatus(orderId, newStatus) {
+  await chefApiPost("chef_orders.php", {
+    action: "update_status",
+    id: orderId,
+    status: newStatus
+  });
+  return await refreshDashboardFromApi();
+}
+
+async function refreshDashboardFromApi() {
+  try {
+    var result = await chefApiRequest("chef_orders.php");
+    allOrders = result.orders;
+    renderDashboard();
+    return true;
+  } catch (error) {
+    chefApiShowError(error);
+    return false;
   }
-  for (var i = 0; i < allOrders.length; i++) {
-    if (allOrders[i].id === orderId) {
-      allOrders[i].status = newStatus;
-    }
-  }
-  saveOrdersToStorage(allOrders);
 }
 
 
@@ -431,41 +356,6 @@ var dashCategorySelect = document.getElementById("dashCategory");
 if (dashCategorySelect) {
   dashCategorySelect.addEventListener("change", function () {
     dashCategoryFilter = dashCategorySelect.value;
-    renderDashboard();
-  });
-}
-
-
-
-var newOrderButton = document.getElementById("dashNewOrder");
-if (newOrderButton) {
-  newOrderButton.addEventListener("click", function () {
-    var allOrders = loadOrdersFromStorage();
-    if (!allOrders) {
-      allOrders = buildStartingOrders();
-    }
-
-   
-    var highestId = 4444;
-    for (var i = 0; i < allOrders.length; i++) {
-      if (allOrders[i].id > highestId) {
-        highestId = allOrders[i].id;
-      }
-    }
-    var newOrder = {
-      id: highestId + 1,
-      table: "T" + (1 + Math.floor(Math.random() * 15)),
-      area: "Main",
-      rush: false,
-      status: "queued",
-      startTime: Date.now(), 
-      items: [{ qty: 1, name: "Daily Special" }]
-    };
-    allOrders.push(newOrder);
-    saveOrdersToStorage(allOrders);
-
-    addActivity("New order #" + newOrder.id + " received", "orange");
-    showToast("New order #" + newOrder.id + " added. Check the Orders page to start it.");
     renderDashboard();
   });
 }
@@ -515,32 +405,6 @@ if (switchChefButton) {
   });
 }
 
-var shiftChipButton = document.getElementById("shiftChip");
-if (shiftChipButton) {
-  function paintShiftButton(isOnShift) {
-    if (isOnShift) {
-      shiftChipButton.textContent = "● On Shift";
-      shiftChipButton.classList.add("on");
-    } else {
-      shiftChipButton.textContent = "● Off Shift";
-      shiftChipButton.classList.remove("on");
-    }
-  }
-  var savedShift = localStorage.getItem(SHIFT_STORAGE_KEY);
-  paintShiftButton(savedShift === "true");
-
-  shiftChipButton.addEventListener("click", function () {
-    var isOnNow = shiftChipButton.classList.contains("on");
-    var turningOn = !isOnNow;
-    paintShiftButton(turningOn);
-    localStorage.setItem(SHIFT_STORAGE_KEY, turningOn ? "true" : "false");
-  });
-}
-
-
-
-
 renderDashboard();
-
-
-window.setInterval(renderDashboard, 30000);
+refreshDashboardFromApi();
+window.setInterval(refreshDashboardFromApi, 30000);

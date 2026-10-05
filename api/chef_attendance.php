@@ -6,14 +6,14 @@ const STALE_OPEN_SHIFT_HOURS = 16;   // an open row older than this is treated a
 
 try {
     $pdo = db();
+    $chef = require_chef($pdo);
+    $chefId = (int) $chef['user_id'];
 
-    // saker_time.js sends chef_id: 3. It must match the fixed chef, so nobody can write for another user.
     $body   = $_SERVER['REQUEST_METHOD'] === 'POST' ? read_json_body() : [];
-    $chefId = (int) ($body['chef_id'] ?? $_GET['chef_id'] ?? CURRENT_CHEF_ID);
-    if ($chefId !== CURRENT_CHEF_ID) {
+    $requestedChefId = (int) ($body['chef_id'] ?? $_GET['chef_id'] ?? $chefId);
+    if ($requestedChefId !== $chefId) {
         fail('Not allowed.', 403);
     }
-    require_chef($pdo, $chefId);
 
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         history($pdo, $chefId);

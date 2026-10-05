@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RMS Restaurant - Login</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body class="body">
+
+    <div class="header">
+        <div class="site-logo">RMS Restaurant</div>
+        <div class="site-nav">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="menu.html">Menu</a>
+            <a href="tables.html">Tables</a>
+            <a href="chat.html">Chat</a>
+            <a href="feedback.html">Feedback</a>
+        </div>
+        <a href="signup.html" class="btn-primary btn-sm">Sign Up</a>
+    </div>
+
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <h2>Welcome Back</h2>
+                <p>Select your role and enter your credentials to sign in.</p>
+            </div>
+
+            <form class="login-form" action="#" method="POST">
+                <div class="form-group">
+                    <label>Email or Username</label>
+                    <input type="text" placeholder="Enter your email or username" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" placeholder="Enter your password" required>
+                </div>
+
+                <div class="form-options">
+                    <label class="remember-me">
+                        <input type="checkbox" checked> Remember me
+                    </label>
+                    <a href="forget-password.html" class="forgot-pass">Forgot Password?</a>
+                </div>
+
+                <div class="form-actions" style="display: flex; flex-direction: column; gap: 10px;">
+                    <a href="customer-login.html" class="btn-submit">Sign In as Customer</a>
+                    <a href="waiter-login.html" class="btn-submit">Sign In as Waiter</a>
+                    <a href="saker_dashboard.html" class="btn-submit">Sign In as Chef</a>
+                    <a href="admin.html" class="btn-submit">Sign In as Admin</a>
+                </div>
+            </form>
+
+            <div class="login-footer">
+                Don't have an account? <a href="signup.html">Create an Account</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

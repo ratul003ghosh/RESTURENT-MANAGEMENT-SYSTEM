@@ -12,7 +12,7 @@ const DB_TO_UI = [
 
 try {
     $pdo = db();
-    require_chef($pdo, CURRENT_CHEF_ID);
+    require_chef($pdo);
 
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         list_orders($pdo);
@@ -118,10 +118,14 @@ function update_status(PDO $pdo, array $body)
         $pdo->rollBack();
         fail('Order not found.', 404);
     }
-    // Served / Paid orders belong to the waiter and cashier side; leave them alone.
-    if (!in_array($current, ['Placed', 'In Kitchen', 'Ready'], true)) {
+    $allowedTransitions = [
+        'Placed'     => ['In Kitchen'],
+        'In Kitchen' => ['Ready'],
+        'Ready'      => ['Served'],
+    ];
+    if (!in_array($newStatus, $allowedTransitions[$current] ?? [], true)) {
         $pdo->rollBack();
-        fail('This order is already finished and cannot be changed by the kitchen.', 409);
+        fail('This order cannot make that status transition.', 409);
     }
 
     $up = $pdo->prepare('UPDATE orders SET status = ? WHERE order_id = ?');

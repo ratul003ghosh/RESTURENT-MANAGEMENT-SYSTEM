@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waiter Login - RMS Restaurant</title>
+    <link rel="stylesheet" href="customer.css">
+    <link rel="stylesheet" href="waiter.css">
+</head>
+
+<body>
+    <div class="body1">
+        <div class="h1">RMS Restaurant</div>
+        <div class="h2">
+            <a href="index.html">Home</a>
+        </div>
+    </div>
+    <div class="body2">
+
+        <div class="container">
+            <div class="auth-wrap">
+                <div class="auth-head"><b>Waiter Login</b>
+                    <div style="font-size:small;margin-top:5px">Sign in to start your shift.</div>
+                </div>
+                <form class="auth-body" id="waiterLoginForm" data-role="waiter">
+                    <div class="form-group"><label for="waiterEmail">Staff Email</label><input class="full" id="waiterEmail" name="email" type="email"
+                        placeholder="waiter@rms.com" autocomplete="username" required></div><br>
+                    <div class="form-group"><label for="waiterPassword">Password</label><input class="full" id="waiterPassword" name="password" type="password"
+                        placeholder="Password" autocomplete="current-password" required></div><br>
+                    <button class="btn full" type="submit">Login</button>
+                    <p class="form-message" id="authMessage" role="status"></p>
+                    <div class="auth-switch">Not staff? <a href="customer-login.html">Customer login</a></div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <div class="body3">&copy; 2026 UIU Restaurant Hub</div>
+    <script src="api-client.js"></script>
+    <script src="customer.js"></script>
+</body>
+
+</html>

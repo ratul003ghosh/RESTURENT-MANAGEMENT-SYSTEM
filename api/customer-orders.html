@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders - UIU Restaurant Hub</title>
+    <link rel="stylesheet" href="customer.css">
+</head>
+
+<body>
+    <div class="body1">
+        <div class="h1">RMS Restaurant</div>
+        <div class="h2">
+            <a href="customer-dashboard.html">Dashboard</a> <a href="customer-menu.html">Menu</a> <a
+                href="customer-reservation.html">Book Table</a> <a href="customer-orders.html"
+                style="color:#3182CE;font-weight:bold">My Orders</a> <a href="customer-bill.html">Bill</a> <a
+                href="customer-chat.html">Chat</a>
+            <span style="font-weight:bold; color:#3182CE; margin-right: 15px;">Role: CUSTOMER</span><a href="index.html">Logout</a>
+        </div>
+    </div>
+    <div class="body2">
+
+        <div class="container">
+            <div class="page-title">My Orders</div>
+            <div class="page-sub">Track your current order and view your order history.</div>
+            <div class="section-title">Current Order</div>
+            <div id="currentOrderContainer"><p class="empty-note">Loading current order...</p></div>
+            <div class="section-title">Order History</div>
+            <div id="customerOrdersList"><p class="empty-note">Loading order history...</p></div>
+            <br><a class="btn2" id="viewCurrentBill" href="customer-bill.html">View Current Bill</a>
+        </div>
+
+    </div>
+    <div class="body3">&copy; 2026 UIU Restaurant Hub</div>
+    <script src="api-client.js"></script>
+    <script src="customer.js"></script>
+
+</body>
+
+</html>

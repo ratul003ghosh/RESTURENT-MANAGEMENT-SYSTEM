@@ -48,3 +48,5 @@ The supplied SQL seed includes the administrator account `admin@uiu.com` with pa
 - New passwords are stored with PHP `password_hash`; existing plaintext demo passwords are upgraded to hashes after a successful login. Waiter-entered notes are stored in existing order-item customization fields. Database queries use PDO prepared statements.
 
 Reservations are stored as `pending` and are managed from the administrator dashboard. The system does not yet provide a staff reply screen for customer chat or payment processing. Printing the bill lets the user choose **Save as PDF** in the browser print dialog.
+## Note on GitHub Pages
+GitHub Pages only hosts static files. It cannot run this PHP/MySQL backend. To present the fully working backend to your teacher, you must run it locally using XAMPP or upload it to a free PHP hosting provider (like InfinityFree).
